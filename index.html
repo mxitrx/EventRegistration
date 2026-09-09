@@ -11,6 +11,9 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Libraries สำหรับสร้าง QR Code และบันทึกรูปภาพ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         body { font-family: 'Kanit', sans-serif; background-color: #050505; color: #E2E8F0; overflow-x: hidden; }
@@ -21,7 +24,6 @@
         }
         .text-gradient { 
             background: linear-gradient(135deg, #A855F7, #06B6D4, #3B82F6); 
-            background-clip: text; 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             background-size: 200% 200%; animation: gradientMove 5s ease infinite;
         }
@@ -51,9 +53,9 @@
                 <div class="hidden md:flex space-x-6 text-sm font-medium text-gray-300">
                     <a href="#about" class="hover:text-cyan-400 transition">เกี่ยวกับงาน</a>
                     <a href="#speakers" class="hover:text-cyan-400 transition">วิทยากร</a>
+                    <a href="#schedule" class="hover:text-cyan-400 transition">ตารางงาน</a>
                     <a href="#rewind" class="hover:text-cyan-400 transition">รับชมย้อนหลัง</a>
-                    <a href="#pricing" class="hover:text-cyan-400 transition">ราคาบัตร</a>
-                    <!-- แทรกเมนูติดต่อเรา -->
+                    <a href="#register" class="hover:text-cyan-400 transition">ราคาบัตร</a>
                     <a href="#contact" class="hover:text-cyan-400 transition">ติดต่อเรา</a>
                 </div>
                 <div>
@@ -106,7 +108,7 @@
         </div>
     </section>
 
-    <!-- [NEW] Speakers Section (วิทยากร) -->
+    <!-- Speakers Section (วิทยากร) -->
     <section id="speakers" class="py-20 px-4 max-w-7xl mx-auto border-t border-gray-800/50">
         <div class="text-center mb-16" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">วิทยากรระดับแนวหน้า</h2>
@@ -194,7 +196,162 @@
         </div>
     </section>
 
-    <!-- [NEW] VOD / Rewind Section (รับชมย้อนหลัง) -->
+    <!-- [NEW] Schedule Section (ตารางงาน) -->
+    <section id="schedule" class="py-20 px-4 max-w-7xl mx-auto border-t border-gray-800/50">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">กำหนดการสัมมนา (Agenda)</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">ตารางกิจกรรมตลอด 2 วันเต็ม อัดแน่นด้วยเนื้อหาและกิจกรรม Workshop</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <!-- Day 1 -->
+            <div data-aos="fade-right">
+                <div class="mb-6 flex items-center gap-4 border-b border-gray-800 pb-4">
+                    <div class="bg-cyan-500/20 text-cyan-400 font-bold px-4 py-2 rounded-lg border border-cyan-500/30">DAY 1</div>
+                    <h3 class="text-2xl font-bold text-white">25 พฤษภาคม 2027</h3>
+                </div>
+                <div class="space-y-4">
+                    <div class="glass-panel p-5 rounded-2xl flex flex-col sm:flex-row gap-4 hover:border-cyan-500/50 transition">
+                        <div class="sm:w-32 shrink-0">
+                            <div class="text-cyan-400 font-bold text-lg">09:00 - 10:30</div>
+                            <div class="text-xs text-gray-500 mt-1">Main Hall A</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-cyan-400 font-bold uppercase tracking-wider mb-1">Opening Keynote</div>
+                            <h4 class="text-lg font-bold text-white mb-1">The Dawn of AGI & AI Agents</h4>
+                            <p class="text-sm text-gray-400 mb-3">เจาะลึกเทรนด์ AI ที่จะเปลี่ยนโครงสร้างธุรกิจและการทำงานในปี 2030</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-700">
+                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-200">ดร. ภัทรินทร์ เกียรติวรกุล</div>
+                                    <div class="text-[10px] text-gray-500">VP of AI, NextGen Labs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Session 2 -->
+                    <div class="glass-panel p-5 rounded-2xl flex flex-col sm:flex-row gap-4 hover:border-cyan-500/50 transition">
+                        <div class="sm:w-32 shrink-0">
+                            <div class="text-cyan-400 font-bold text-lg">11:00 - 12:30</div>
+                            <div class="text-xs text-gray-500 mt-1">Room 101</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-purple-400 font-bold uppercase tracking-wider mb-1">Cloud Architecture</div>
+                            <h4 class="text-lg font-bold text-white mb-1">Next-Gen Microservices</h4>
+                            <p class="text-sm text-gray-400 mb-3">กรณีศึกษาการปรับโครงสร้างระบบหลังบ้านเพื่อรองรับคนนับล้าน</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-700">
+                                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=100&q=80" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-200">Marcus Vance</div>
+                                    <div class="text-[10px] text-gray-500">Global Architect, CloudScale</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Session 3 -->
+                    <div class="glass-panel p-5 rounded-2xl flex flex-col sm:flex-row gap-4 hover:border-cyan-500/50 transition">
+                        <div class="sm:w-32 shrink-0">
+                            <div class="text-cyan-400 font-bold text-lg">14:00 - 16:00</div>
+                            <div class="text-xs text-gray-500 mt-1">Lab Room 3</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider mb-1">Hands-on Workshop</div>
+                            <h4 class="text-lg font-bold text-white mb-1">Zero-Trust Security Implementation</h4>
+                            <p class="text-sm text-gray-400 mb-3">เวิร์กช็อปการป้องกันระบบในระดับองค์กร (ต้องนำ Laptop มาเอง)</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-700">
+                                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-200">Elena Rostova</div>
+                                    <div class="text-[10px] text-gray-500">Chief Cyber Defense, CyberShield</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div data-aos="fade-left">
+                <div class="mb-6 flex items-center gap-4 border-b border-gray-800 pb-4">
+                    <div class="bg-purple-500/20 text-purple-400 font-bold px-4 py-2 rounded-lg border border-purple-500/30">DAY 2</div>
+                    <h3 class="text-2xl font-bold text-white">26 พฤษภาคม 2027</h3>
+                </div>
+                <div class="space-y-4">
+                    <div class="glass-panel p-5 rounded-2xl flex flex-col sm:flex-row gap-4 hover:border-purple-500/50 transition">
+                        <div class="sm:w-32 shrink-0">
+                            <div class="text-purple-400 font-bold text-lg">09:30 - 11:00</div>
+                            <div class="text-xs text-gray-500 mt-1">Main Hall A</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-pink-400 font-bold uppercase tracking-wider mb-1">Tech Strategy</div>
+                            <h4 class="text-lg font-bold text-white mb-1">Digital Banking Transformation</h4>
+                            <p class="text-sm text-gray-400 mb-3">การขับเคลื่อนองค์กรการเงิน สู่ระบบดิจิทัลแบงก์กิ้งเต็มรูปแบบ</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-700">
+                                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-200">กานต์พิชชา สุวรรณเมธา</div>
+                                    <div class="text-[10px] text-gray-500">Head of Engineering, FinTech Nexus</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Session 2 -->
+                    <div class="glass-panel p-5 rounded-2xl flex flex-col sm:flex-row gap-4 hover:border-purple-500/50 transition">
+                        <div class="sm:w-32 shrink-0">
+                            <div class="text-purple-400 font-bold text-lg">11:15 - 12:30</div>
+                            <div class="text-xs text-gray-500 mt-1">Room 201</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-yellow-400 font-bold uppercase tracking-wider mb-1">Web3 & Future</div>
+                            <h4 class="text-lg font-bold text-white mb-1">Decentralized Identity in Action</h4>
+                            <p class="text-sm text-gray-400 mb-3">อนาคตของระบบยืนยันตัวตนและการจัดการสิทธิ์ด้วย Blockchain</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-700">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-200">Alex Mercer</div>
+                                    <div class="text-[10px] text-gray-500">CEO, BlockVision</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Session 3 -->
+                    <div class="glass-panel p-5 rounded-2xl flex flex-col sm:flex-row gap-4 hover:border-purple-500/50 transition">
+                        <div class="sm:w-32 shrink-0">
+                            <div class="text-purple-400 font-bold text-lg">14:00 - 16:00</div>
+                            <div class="text-xs text-gray-500 mt-1">Lab Room 1</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-blue-400 font-bold uppercase tracking-wider mb-1">DevOps Masterclass</div>
+                            <h4 class="text-lg font-bold text-white mb-1">Advanced CI/CD Automation</h4>
+                            <p class="text-sm text-gray-400 mb-3">เจาะลึกการสร้าง Pipeline เพื่อลดเวลาการ Deploy ระบบถึง 80%</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-700">
+                                    <img src="https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=100&q=80" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-200">Sarah Jenkins</div>
+                                    <div class="text-[10px] text-gray-500">Senior Engineer, TechGiant</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- VOD / Rewind Section (รับชมย้อนหลัง) -->
     <section id="rewind" class="py-20 px-4 bg-[#0A0D14] border-y border-gray-800/50 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-900/20 rounded-full blur-[100px]"></div>
         
@@ -296,7 +453,7 @@
                         ข้อมูลส่วนตัวและองค์กรผู้สมัคร
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <input type="text" name="name" placeholder="ชื่อ - นามสกุล *" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
+                        <input type="text" id="inputName" name="name" placeholder="ชื่อ - นามสกุล *" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
                         <input type="email" name="email" placeholder="อีเมลองค์กร *" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
                         <input type="tel" name="phone" placeholder="เบอร์โทรศัพท์ *" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
                         <input type="text" name="company" placeholder="ชื่อองค์กร / บริษัท *" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
@@ -379,9 +536,32 @@
         </div>
     </section>
 
-    <!-- [NEW] Sponsors Tier Section --> <section class="py-20 px-4 max-w-7xl mx-auto text-center"> <h2 class="text-3xl font-bold text-white mb-4">ผู้สนับสนุนหลักอย่างเป็นทางการ</h2> <p class="text-gray-400 mb-12">ขอขอบคุณพาร์ทเนอร์ที่ร่วมผลักดันวงการเทคโนโลยีไทย</p> <!-- Platinum --> <div class="mb-12"> <h3 class="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Platinum Sponsors</h3> <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all"> <div class="text-3xl font-black text-white">AWS</div> <div class="text-3xl font-black text-white">Google Cloud</div> <div class="text-3xl font-black text-white">Microsoft</div> </div> </div> <!-- Gold --> <div> <h3 class="text-sm font-bold text-yellow-500 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Gold Sponsors</h3> <div class="flex flex-wrap justify-center gap-6 md:gap-12 items-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all text-xl font-bold text-gray-300"> <div>Datadog</div> <div>Cloudflare</div> <div>Palo Alto Networks</div> <div>MongoDB</div> </div> </div> </section>
+    <!-- Sponsors Tier Section --> 
+    <section class="py-20 px-4 max-w-7xl mx-auto text-center"> 
+        <h2 class="text-3xl font-bold text-white mb-4">ผู้สนับสนุนหลักอย่างเป็นทางการ</h2> 
+        <p class="text-gray-400 mb-12">ขอขอบคุณพาร์ทเนอร์ที่ร่วมผลักดันวงการเทคโนโลยีไทย</p> 
+        <!-- Platinum --> 
+        <div class="mb-12"> 
+            <h3 class="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Platinum Sponsors</h3> 
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all"> 
+                <div class="text-3xl font-black text-white">AWS</div> 
+                <div class="text-3xl font-black text-white">Google Cloud</div> 
+                <div class="text-3xl font-black text-white">Microsoft</div> 
+            </div> 
+        </div> 
+        <!-- Gold --> 
+        <div> 
+            <h3 class="text-sm font-bold text-yellow-500 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Gold Sponsors</h3> 
+            <div class="flex flex-wrap justify-center gap-6 md:gap-12 items-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all text-xl font-bold text-gray-300"> 
+                <div>Datadog</div> 
+                <div>Cloudflare</div> 
+                <div>Palo Alto Networks</div> 
+                <div>MongoDB</div> 
+            </div> 
+        </div> 
+    </section>
 
-    <!-- แทรก Section ติดต่อเรา (Contact Us) -->
+    <!-- Section ติดต่อเรา (Contact Us) -->
     <section id="contact" class="py-20 px-4 max-w-7xl mx-auto border-t border-gray-800/50 relative">
         <div class="text-center mb-16" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">ติดต่อสอบถาม</h2>
@@ -433,6 +613,45 @@
         </button>
     </div>
 
+    <!-- Ticket Modal (ซ่อนไว้ เริ่มทำงานเมื่อส่งฟอร์มสำเร็จ) -->
+    <div id="ticketModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="flex flex-col items-center max-w-md w-full">
+            
+            <!-- ส่วนที่จะถูกแคปเจอร์เป็นรูปภาพ -->
+            <div id="ticketContainer" class="bg-gradient-to-b from-[#111827] to-[#0A0D14] w-full rounded-2xl border border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.3)] overflow-hidden relative p-8 text-center">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl"></div>
+                
+                <h2 class="text-2xl font-bold text-white tracking-wider mb-1">TechForward Summit</h2>
+                <div class="text-cyan-400 text-sm font-medium tracking-widest mb-6">2027 E-TICKET</div>
+                
+                <!-- กล่องใส่ QR Code -->
+                <div class="bg-white p-4 rounded-xl inline-block mb-6 shadow-inner" id="qrcodeWrapper">
+                    <div id="qrcode"></div>
+                </div>
+                
+                <div class="text-left border-t border-gray-700 pt-5">
+                    <div class="text-gray-400 text-xs uppercase tracking-wider mb-1">ผู้เข้าร่วมงาน (Attendee)</div>
+                    <div id="ticketName" class="text-xl font-bold text-white mb-4 overflow-hidden whitespace-nowrap text-ellipsis leading-normal pb-1">John Doe</div>
+                    
+                    <div class="text-gray-400 text-xs uppercase tracking-wider mb-1">ประเภทบัตร (Ticket Type)</div>
+                    <div id="ticketTier" class="text-lg font-bold text-cyan-400 uppercase tracking-widest">VIP Pass</div>
+                </div>
+            </div>
+            
+            <!-- ปุ่มควบคุม Modal -->
+            <div class="flex gap-4 mt-6 w-full">
+                <button type="button" onclick="downloadTicket(event)" class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    บันทึกรูปตั๋ว
+                </button>
+                <button type="button" onclick="closeTicket()" class="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 rounded-lg transition border border-gray-700">
+                    ปิดหน้าต่าง
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script>
         // AOS Animation
@@ -448,7 +667,7 @@
         // 🚀 URL Google Apps Script (อย่าลืมเปลี่ยนเป็น URL ของคุณ)
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFnp09VDXGq1sQuV9YYFbi5-vxYe_Lp3EASi85FLDlgYIkgo72H3Z2iltPICm9RviaUQ/exec'; 
 
-        // Countdown Timer
+        // [FIXED] Countdown Timer - แก้ไขให้เป้าหมายตรงกับปี 2027
         const targetDate = new Date("2027-05-25T09:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
@@ -485,6 +704,75 @@
             document.getElementById('hiddenTotal').value = total;
         }
 
+        // [FIXED] ฟังก์ชันสำหรับ E-Ticket แปลง Canvas เป็น Img ให้สมบูรณ์ 100%
+        function generateTicket(name, ticketTier) {
+            document.getElementById('ticketName').innerText = name;
+            document.getElementById('ticketTier').innerText = ticketTier;
+            
+            const qrcodeContainer = document.getElementById('qrcode');
+            qrcodeContainer.innerHTML = '';
+            
+            const qrData = `TechForward2027|${name}|${ticketTier}|${new Date().getTime()}`;
+            new QRCode(qrcodeContainer, {
+                text: qrData,
+                width: 150,
+                height: 150,
+                colorDark : "#0A0D14",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+            
+            // รอให้ QR Code วาดเสร็จก่อนแปลงเป็นแท็กรูปภาพ <img>
+            setTimeout(() => {
+                const canvas = qrcodeContainer.querySelector('canvas');
+                if(canvas) {
+                    const img = new Image();
+                    img.src = canvas.toDataURL('image/png');
+                    img.style.margin = "auto";
+                    img.style.display = "block";
+                    qrcodeContainer.innerHTML = ''; 
+                    qrcodeContainer.appendChild(img); 
+                }
+            }, 100);
+            
+            const modal = document.getElementById('ticketModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); }, 50);
+        }
+
+        function closeTicket() {
+            const modal = document.getElementById('ticketModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        // [FIXED] แก้ไข Event Object และตั้งค่า html2canvas ให้เสถียร
+        function downloadTicket(event) {
+            const ticketEle = document.getElementById('ticketContainer');
+            const userName = document.getElementById('ticketName').innerText;
+            const btn = event.currentTarget; 
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = 'กำลังบันทึกภาพ...';
+            
+            setTimeout(() => {
+                html2canvas(ticketEle, {
+                    scale: 3, // เพิ่มความคมชัดระดับ HD
+                    backgroundColor: '#0A0D14', 
+                    useCORS: true, 
+                    allowTaint: true,
+                    logging: false
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `TechForward_Ticket_${userName.replace(/\s+/g, '_')}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    
+                    btn.innerHTML = originalText;
+                });
+            }, 300); 
+        }
+
         // Form Submit
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -492,10 +780,23 @@
             btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> กำลังประมวลผล...`;
             btn.disabled = true;
 
+            const inputName = document.getElementById('inputName').value;
+            const selectedTicket = document.querySelector('input[name="ticket"]:checked').value;
+
             fetch(SCRIPT_URL, { method: 'POST', body: new URLSearchParams(new FormData(this)) })
             .then(res => res.json())
             .then(res => {
-                Swal.fire({ title: 'สำเร็จ!', text: 'ได้รับข้อมูลเรียบร้อย E-Ticket จะถูกส่งไปที่อีเมลของคุณ', icon: 'success', background: '#151A27', color: '#fff', confirmButtonColor: '#06B6D4' });
+                generateTicket(inputName, selectedTicket);
+                
+                Swal.fire({ 
+                    title: 'สำเร็จ!', 
+                    text: 'กรุณาบันทึก E-Ticket ด้านล่างเพื่อใช้สแกนเข้างาน', 
+                    icon: 'success', 
+                    background: '#151A27', 
+                    color: '#fff', 
+                    confirmButtonColor: '#06B6D4' 
+                });
+                
                 this.reset();
                 currentPax = 1; updatePax(0);
             })
@@ -506,5 +807,79 @@
             });
         });
     </script>
+    <!-- ================= ADD-ON PATCH & EFFECTS ================= -->
+    <style>
+        /* ลูกเล่น 1: แถบสถานะเลื่อนหน้าจอ (Scroll Progress) */
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #A855F7, #06B6D4); z-index: 9999; transition: width 0.1s ease; width: 0%; }
+        
+        /* ลูกเล่น 2: แสงออร่าตามเมาส์ (Cursor Glow) */
+        #cursor-glow { position: fixed; width: 400px; height: 400px; background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, rgba(0,0,0,0) 60%); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: opacity 0.3s; opacity: 0; }
+    </style>
+
+    <div id="scroll-progress"></div>
+    <div id="cursor-glow"></div>
+
+    <script>
+        // ลูกเล่น แสงออร่าตามเมาส์
+        const cursorGlow = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.opacity = '1';
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        /* -----------------------------------------------------------
+           ส่วนที่ 2: แก้บั๊ก QR Code หาย และตัวหนังสือแหว่ง (Override)
+        ----------------------------------------------------------- */
+        // ประกาศทับฟังก์ชัน downloadTicket ตัวเดิม
+        window.downloadTicket = function(event) {
+            const ticketEle = document.getElementById('ticketContainer');
+            const nameEle = document.getElementById('ticketName');
+            const userName = nameEle.innerText;
+            const btn = event.currentTarget || document.getElementById('submitBtn'); 
+            const originalText = btn.innerHTML;
+            
+            // 1. เปลี่ยนข้อความบนปุ่ม
+            btn.innerHTML = 'กำลังประมวลผลรูปภาพ...';
+            
+            // 2. ดึงภาพ QR Code แบบ Base64 ที่เรนเดอร์เสร็จแล้ว
+            const qrcodeImg = document.querySelector('#qrcode img');
+            const qrSrc = qrcodeImg ? qrcodeImg.src : '';
+
+            // 3. หน่วงเวลาเล็กน้อยให้ CSS โหลดสมบูรณ์ก่อนถ่ายภาพ
+            setTimeout(() => {
+                html2canvas(ticketEle, {
+                    scale: 3, // ความคมชัดระดับ 3x
+                    backgroundColor: '#0A0D14', 
+                    useCORS: true, 
+                    allowTaint: true,
+                    // onclone จะทำงานในเบื้องหลังก่อนถ่ายภาพ
+                    onclone: function(clonedDoc) {
+                        // แก้บั๊ก 1: ตัวหนังสือแหว่ง (ปลดคลาสตัดคำบรรทัดเดียวออก)
+                        const clonedName = clonedDoc.getElementById('ticketName');
+                        if (clonedName) {
+                            clonedName.className = "text-xl font-bold text-white mb-4 pb-2";
+                        }
+                        
+                        // แก้บั๊ก 2: QR Code เป็นกล่องสีเทา (บังคับแทรกรูป <img> แทน <canvas>)
+                        const clonedQrContainer = clonedDoc.getElementById('qrcode');
+                        if (clonedQrContainer && qrSrc) {
+                            clonedQrContainer.innerHTML = '<img src="' + qrSrc + '" style="display:block; margin:auto; width:150px; height:150px;">';
+                        }
+                    }
+                }).then(canvas => {
+                    // สร้างไฟล์ดาวน์โหลด
+                    const link = document.createElement('a');
+                    link.download = `TechForward_Ticket_${userName.replace(/\s+/g, '_')}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    
+                    // 4. คืนค่าปุ่มให้กลับเป็นเหมือนเดิม
+                    btn.innerHTML = originalText;
+                });
+            }, 600); // หน่วงเวลา 600ms ให้ระบบวาดภาพชัวร์ๆ
+        };
+    </script>
+    <!-- ========================================================== -->
 </body>
 </html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scanner | TechForward Summit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Libraries สำหรับกล้องสแกน QR Code และ Popup -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body { font-family: 'Kanit', sans-serif; background-color: #050505; color: #E2E8F0; margin: 0; padding: 0; overflow-x: hidden; }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+        .glass-panel { background: rgba(15, 20, 30, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        
+        /* ตกแต่งกรอบ Scanner ให้ออกแนว Sci-fi */
+        #reader { width: 100%; border-radius: 1rem; overflow: hidden; border: none !important; }
+        #reader__scan_region { background: #000; }
+        #reader__scan_region img { opacity: 0.3; } /* ซ่อนรูปภาพ default ของ library */
+        #reader__dashboard { background: rgba(15, 20, 30, 0.9); padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1); }
+        #reader button { background: #06B6D4; color: #000; font-family: 'Kanit'; font-weight: bold; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; transition: 0.3s; margin: 0.2rem; }
+        #reader button:hover { background: #0891b2; }
+        #reader select { background: #1E293B; color: #fff; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #334155; outline: none; margin-bottom: 0.5rem; font-family: 'Kanit'; width: 100%;}
+    </style>
+</head>
+<body class="bg-grid min-h-screen flex flex-col items-center pb-10">
+
+    <!-- Header -->
+    <nav class="w-full glass-panel sticky top-0 z-50 border-b border-gray-800 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+        <div class="max-w-md mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-gradient-to-tr from-purple-600 to-cyan-500 rounded-lg flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(6,182,212,0.5)]">TF</div>
+                <span class="font-bold text-lg text-white tracking-wide">Scanner <span class="text-cyan-400">App</span></span>
+            </div>
+            <div class="px-2 py-1 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> READY
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-md px-4 mt-6 flex-grow flex flex-col">
+        
+        <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-white">สแกน E-Ticket เข้างาน</h2>
+            <p class="text-sm text-gray-400 mt-1">จ่อคิวอาร์โค้ดให้อยู่ในกรอบเพื่อตรวจสอบสิทธิ์</p>
+        </div>
+
+        <!-- Scanner Camera Area -->
+        <div class="glass-panel p-2 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.15)] relative">
+            <!-- กรอบมุมกล้องแบบไซไฟ -->
+            <div class="absolute top-4 left-4 w-8 h-8 border-t-4 border-l-4 border-cyan-400 rounded-tl-lg z-10"></div>
+            <div class="absolute top-4 right-4 w-8 h-8 border-t-4 border-r-4 border-cyan-400 rounded-tr-lg z-10"></div>
+            <div class="absolute bottom-4 left-4 w-8 h-8 border-b-4 border-l-4 border-cyan-400 rounded-bl-lg z-10"></div>
+            <div class="absolute bottom-4 right-4 w-8 h-8 border-b-4 border-r-4 border-cyan-400 rounded-br-lg z-10"></div>
+            
+            <!-- ตัวแสดงกล้อง -->
+            <div id="reader" class="rounded-xl overflow-hidden relative"></div>
+        </div>
+
+        <!-- Result Box (แสดงผลคนล่าสุดที่สแกนผ่าน) -->
+        <div id="lastResultPanel" class="mt-6 glass-panel p-5 rounded-2xl border-l-4 border-l-gray-600 hidden transition-all duration-300">
+            <div class="text-xs text-gray-400 uppercase tracking-widest mb-2 font-medium">ทำรายการล่าสุด (Last Scan)</div>
+            <div class="flex items-center gap-4">
+                <div id="resultIcon" class="w-12 h-12 rounded-full flex items-center justify-center shrink-0"></div>
+                <div>
+                    <h3 id="resultName" class="text-lg font-bold text-white leading-tight">-</h3>
+                    <div id="resultTier" class="text-sm font-medium mt-1">-</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // สร้างระบบเสียง Beep เวลามีการสแกนติด
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playBeep(success) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            if (success) {
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); // เสียงสูง
+                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.1);
+            } else {
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.setValueAtTime(150, audioCtx.currentTime); // เสียงต่ำ
+                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.3);
+            }
+        }
+
+        // ตัวแปรป้องกันการสแกนซ้ำรัวๆ
+        let isProcessing = false;
+
+        // ฟังก์ชันอัปเดตหน้าจอล่าสุด
+        function updateLastResult(name, tier, isValid) {
+            const panel = document.getElementById('lastResultPanel');
+            const icon = document.getElementById('resultIcon');
+            const nameEl = document.getElementById('resultName');
+            const tierEl = document.getElementById('resultTier');
+
+            panel.classList.remove('hidden');
+            nameEl.innerText = name;
+            
+            if (isValid) {
+                panel.style.borderLeftColor = tier.includes('VIP') ? '#A855F7' : '#06B6D4'; // สีม่วง VIP, สีฟ้า Regular
+                icon.className = tier.includes('VIP') ? 'w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-purple-500/20 text-purple-400' : 'w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-cyan-500/20 text-cyan-400';
+                icon.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>';
+                tierEl.innerText = tier;
+                tierEl.className = tier.includes('VIP') ? 'text-xs font-bold text-purple-400 bg-purple-900/30 px-2 py-0.5 rounded inline-block mt-1' : 'text-xs font-bold text-cyan-400 bg-cyan-900/30 px-2 py-0.5 rounded inline-block mt-1';
+            } else {
+                panel.style.borderLeftColor = '#ef4444'; // สีแดง
+                icon.className = 'w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-red-500/20 text-red-500';
+                icon.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+                tierEl.innerText = 'ตั๋วไม่ถูกต้อง / ไม่พบในระบบ';
+                tierEl.className = 'text-xs font-bold text-red-400 bg-red-900/30 px-2 py-0.5 rounded inline-block mt-1';
+            }
+        }
+
+        // เมื่อสแกน QR Code ติด
+        function onScanSuccess(decodedText, decodedResult) {
+            if(isProcessing) return; // ป้องกันการเด้งซ้ำ
+            isProcessing = true;
+
+            // ตรวจสอบฟอร์แมตข้อมูล (TechForward2027|Name|Tier|Timestamp)
+            const dataParts = decodedText.split('|');
+            
+            if (dataParts.length >= 3 && dataParts[0] === 'TechForward2027') {
+                // ข้อมูลถูกต้อง
+                playBeep(true);
+                const attendeeName = dataParts[1];
+                const ticketTier = dataParts[2];
+
+                updateLastResult(attendeeName, ticketTier, true);
+
+                Swal.fire({
+                    title: 'CHECK-IN SUCCESS',
+                    html: `
+                        <div class="text-2xl font-bold text-white my-2">${attendeeName}</div>
+                        <div class="inline-block px-3 py-1 rounded bg-gray-800 border border-gray-600 text-cyan-400 font-bold tracking-widest uppercase text-sm">${ticketTier}</div>
+                        <div class="mt-4 text-xs text-gray-500">อนุญาตให้เข้างานได้</div>
+                    `,
+                    icon: 'success',
+                    background: '#151A27',
+                    color: '#fff',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                }).then(() => {
+                    isProcessing = false; // เปิดให้สแกนคนต่อไปได้
+                });
+
+            } else {
+                // ข้อมูลไม่ถูกต้อง หรือเป็น QR Code ปลอม
+                playBeep(false);
+                updateLastResult('Unknown Ticket', '-', false);
+
+                Swal.fire({
+                    title: 'INVALID TICKET',
+                    text: 'QR Code นี้ไม่ใช่ตั๋วของงาน TechForward Summit',
+                    icon: 'error',
+                    background: '#151A27',
+                    color: '#fff',
+                    confirmButtonColor: '#ef4444'
+                }).then(() => {
+                    isProcessing = false;
+                });
+            }
+        }
+
+        function onScanFailure(error) {
+            // ทำงานเงียบๆ เมื่อกล้องยังหา QR ไม่เจอ
+            // console.warn(`Code scan error = ${error}`);
+        }
+
+        // ตั้งค่าตัวสแกน
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader",
+            { 
+                fps: 10, 
+                qrbox: {width: 250, height: 250},
+                aspectRatio: 1.0,
+                showTorchButtonIfSupported: true, // รองรับปุ่มเปิดไฟฉาย
+            },
+            /* verbose= */ false);
+
+        // เริ่มต้นทำงาน
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
+    </script>
+</body>
+</html>
