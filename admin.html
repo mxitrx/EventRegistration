@@ -303,7 +303,7 @@
                     <td>
                         <div class="font-medium text-white">${name}</div>
                         <div class="text-xs text-gray-400 mt-1">${email}</div>
-                        <div class="text-xs text-gray-500">${phone}</div>
+                        <div class="text-xs text-gray-500">0${phone}</div>
                     </td>
                     <td>
                         <div class="text-gray-300 font-medium">${company}</div>
@@ -432,5 +432,171 @@
             fetchData();
         };
     </script>
+    <!-- ========================================================== -->
+    <!-- NEW: PREMIUM CERTIFICATE GENERATOR (แก้ไขชื่อหาย + ดีไซน์หรู) -->
+    <!-- วางโค้ดนี้ไว้เหนือแท็ก </body> ล่างสุด โดยไม่ต้องแก้โค้ดเดิม -->
+    <!-- ========================================================== -->
+    
+    <!-- UI หน้าต่างใบประกาศ -->
+    <div id="certModal" class="fixed inset-0 z-[120] bg-black/90 backdrop-blur-sm flex flex-col items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        
+        <!-- พื้นที่สำหรับเรนเดอร์ใบประกาศ (Premium Dark Tech Style) -->
+        <div id="certPrintArea" class="w-[842px] h-[595px] bg-gradient-to-br from-[#0B101E] via-[#05070A] to-[#0B101E] relative overflow-hidden flex flex-col items-center justify-center p-12 scale-75 md:scale-100 transform origin-center border-[8px] border-[#1E293B]">
+            
+            <!-- กรอบเส้นด้านใน (Inner Border) -->
+            <div class="absolute inset-4 border border-[#334155] rounded-sm pointer-events-none"></div>
+            
+            <!-- มุมกรอบแนวล้ำสมัย (Tech Corners) -->
+            <div class="absolute top-4 left-4 w-12 h-12 border-t-2 border-l-2 border-[#06B6D4]"></div>
+            <div class="absolute top-4 right-4 w-12 h-12 border-t-2 border-r-2 border-[#06B6D4]"></div>
+            <div class="absolute bottom-4 left-4 w-12 h-12 border-b-2 border-l-2 border-[#06B6D4]"></div>
+            <div class="absolute bottom-4 right-4 w-12 h-12 border-b-2 border-r-2 border-[#06B6D4]"></div>
+
+            <!-- แสงออร่าพื้นหลัง (Background Glows) -->
+            <div class="absolute -top-32 -right-32 w-[500px] h-[500px] bg-cyan-900/20 rounded-full blur-[100px] pointer-events-none"></div>
+            <div class="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <!-- ข้อความในใบประกาศ -->
+            <div class="text-[#06B6D4] tracking-[0.4em] font-semibold text-sm mb-4 uppercase z-10">TechForward Summit 2027</div>
+            
+            <h1 class="text-5xl font-black text-white mb-2 tracking-widest z-10" style="font-family: serif;">CERTIFICATE</h1>
+            <div class="text-gray-400 tracking-[0.3em] uppercase text-xs mb-10 z-10">Of Attendance</div>
+            
+            <p class="text-gray-400 text-sm mb-6 z-10 font-light italic">This certificate is proudly presented to</p>
+            
+            <!-- ชื่อผู้เข้าร่วม (แก้ไข: ใช้สีทึบ + เงาเรืองแสง เพื่อให้ html2canvas มองเห็น) -->
+            <div id="certNameDisplay" class="text-5xl font-bold text-white mb-8 pb-2 z-10 text-center w-full truncate px-12" style="text-shadow: 0 0 20px rgba(6, 182, 212, 0.6); font-family: 'Kanit', sans-serif;">
+                Name Here
+            </div>
+            
+            <p class="text-gray-400 text-center max-w-xl text-sm leading-relaxed mb-16 z-10 font-light">
+                For successfully attending the TechForward Summit, demonstrating a strong commitment<br>to embracing future technologies, innovation, and digital transformation.
+            </p>
+            
+            <!-- ลายเซ็น ตราประทับ และวันที่ -->
+            <div class="w-full flex justify-between items-end px-20 mt-auto z-10">
+                <!-- ผู้จัดงาน -->
+                <div class="text-center w-40">
+                    <div class="border-b border-gray-600 pb-2 mb-2">
+                        <span class="text-white text-2xl" style="font-family: cursive; font-style: italic;">N. Jutatipparat</span>
+                    </div>
+                    <p class="text-gray-500 text-[9px] uppercase tracking-widest">Event Director</p>
+                </div>
+                
+                <!-- ตราประทับตรงกลาง (Seal) -->
+                <div class="w-20 h-20 rounded-full border border-cyan-500/50 flex flex-col items-center justify-center bg-[#0F172A] shadow-[0_0_20px_rgba(6,182,212,0.2)] mb-2 relative">
+                    <div class="absolute inset-1 border border-cyan-500/20 rounded-full border-dashed"></div>
+                    <span class="text-[#06B6D4] font-black text-xl">TF</span>
+                    <span class="text-[7px] text-gray-400 tracking-widest mt-1">2027</span>
+                </div>
+
+                <!-- วันที่ -->
+                <div class="text-center w-40">
+                    <div class="border-b border-gray-600 pb-2 mb-2">
+                        <span class="text-white text-base font-medium tracking-wider">May 25-26, 2027</span>
+                    </div>
+                    <p class="text-gray-500 text-[9px] uppercase tracking-widest">Date Issued</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ปุ่มควมคุม -->
+        <div class="flex gap-4 mt-8 z-10">
+            <button onclick="downloadCertificate()" id="btnDownloadCert" class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-6 py-3 rounded-lg font-bold transition flex items-center gap-2 shadow-[0_0_15px_rgba(6,182,212,0.4)] hover:scale-105 transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> 
+                ดาวน์โหลดใบประกาศ (PNG)
+            </button>
+            <button onclick="closeCertModal()" class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-bold transition border border-gray-700">
+                ปิดหน้าต่าง
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // โหลดไลบรารี html2canvas (หากยังไม่มี)
+        if (typeof html2canvas === 'undefined') {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+            document.head.appendChild(script);
+        }
+
+        let currentCertName = '';
+        function openCertificate(name) {
+            currentCertName = name;
+            // ใส่ชื่อแบบปกติ (สีขาว + เงาสีฟ้า) เพื่อให้แคปเจอร์ติด 100%
+            document.getElementById('certNameDisplay').innerText = name;
+            
+            const modal = document.getElementById('certModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        }
+
+        function closeCertModal() {
+            const modal = document.getElementById('certModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function downloadCertificate() {
+            const printArea = document.getElementById('certPrintArea');
+            const btn = document.getElementById('btnDownloadCert');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = 'กำลังประมวลผลภาพ...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                html2canvas(printArea, {
+                    scale: 3, // ความละเอียดสูง (2K)
+                    backgroundColor: '#05070A', // บังคับพื้นหลังสีเข้มตอนแคป
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `TechForward_Cert_${currentCertName.replace(/\s+/g, '_')}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    
+                    Swal.fire({ title: 'บันทึกสำเร็จ!', text: 'ใบประกาศถูกดาวน์โหลดแล้ว', icon: 'success', background: '#0F172A', color: '#fff', timer: 2000, showConfirmButton: false });
+                });
+            }, 600); // หน่วงเวลาให้ Font เรนเดอร์ครบก่อนถ่ายภาพ
+        }
+
+        // เพิ่มปุ่มใบประกาศเข้าไปในตาราง
+        document.addEventListener('DOMContentLoaded', () => {
+            if(typeof window.processData === 'function') {
+                const originalProcessData = window.processData;
+                window.processData = function(data) {
+                    originalProcessData(data);
+                    
+                    const rows = document.querySelectorAll('#tableBody tr');
+                    rows.forEach(row => {
+                        if(row.cells.length >= 5) {
+                            const nameCell = row.cells[0];
+                            const nameText = nameCell.querySelector('.font-medium.text-white').innerText;
+                            const safeName = nameText.replace(/'/g, "\\'");
+                            const actionCell = row.cells[4];
+                            
+                            const certBtn = document.createElement('button');
+                            certBtn.onclick = () => openCertificate(safeName);
+                            certBtn.className = "mt-2 w-full text-[10px] font-bold text-white bg-cyan-600/20 border border-cyan-500/50 hover:bg-cyan-500 hover:text-white transition px-3 py-1.5 rounded shadow-[0_0_10px_rgba(6,182,212,0.2)] flex items-center justify-center gap-1 transform hover:scale-105";
+                            certBtn.innerHTML = `<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> ใบประกาศ`;
+                            
+                            actionCell.appendChild(certBtn);
+                        }
+                    });
+                };
+                
+                if(typeof globalData !== 'undefined' && globalData.length > 0) {
+                    window.processData(globalData);
+                }
+            }
+        });
+    </script>
+    <!-- ========================================================== -->
 </body>
 </html>
