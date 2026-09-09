@@ -21,6 +21,7 @@
         }
         .text-gradient { 
             background: linear-gradient(135deg, #A855F7, #06B6D4, #3B82F6); 
+            background-clip: text; 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             background-size: 200% 200%; animation: gradientMove 5s ease infinite;
         }
@@ -52,6 +53,8 @@
                     <a href="#speakers" class="hover:text-cyan-400 transition">วิทยากร</a>
                     <a href="#rewind" class="hover:text-cyan-400 transition">รับชมย้อนหลัง</a>
                     <a href="#pricing" class="hover:text-cyan-400 transition">ราคาบัตร</a>
+                    <!-- แทรกเมนูติดต่อเรา -->
+                    <a href="#contact" class="hover:text-cyan-400 transition">ติดต่อเรา</a>
                 </div>
                 <div>
                     <a href="#register" class="bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg transition-transform hover:scale-105">ลงทะเบียนทันที</a>
@@ -378,6 +381,46 @@
 
     <!-- [NEW] Sponsors Tier Section --> <section class="py-20 px-4 max-w-7xl mx-auto text-center"> <h2 class="text-3xl font-bold text-white mb-4">ผู้สนับสนุนหลักอย่างเป็นทางการ</h2> <p class="text-gray-400 mb-12">ขอขอบคุณพาร์ทเนอร์ที่ร่วมผลักดันวงการเทคโนโลยีไทย</p> <!-- Platinum --> <div class="mb-12"> <h3 class="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Platinum Sponsors</h3> <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all"> <div class="text-3xl font-black text-white">AWS</div> <div class="text-3xl font-black text-white">Google Cloud</div> <div class="text-3xl font-black text-white">Microsoft</div> </div> </div> <!-- Gold --> <div> <h3 class="text-sm font-bold text-yellow-500 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Gold Sponsors</h3> <div class="flex flex-wrap justify-center gap-6 md:gap-12 items-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all text-xl font-bold text-gray-300"> <div>Datadog</div> <div>Cloudflare</div> <div>Palo Alto Networks</div> <div>MongoDB</div> </div> </div> </section>
 
+    <!-- แทรก Section ติดต่อเรา (Contact Us) -->
+    <section id="contact" class="py-20 px-4 max-w-7xl mx-auto border-t border-gray-800/50 relative">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">ติดต่อสอบถาม</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">หากคุณมีข้อสงสัยเกี่ยวกับการซื้อบัตร สปอนเซอร์ หรือข้อมูลเพิ่มเติมเกี่ยวกับงานสัมมนา สามารถติดต่อทีมงานได้ผ่านช่องทางด้านล่าง</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+            <!-- Email -->
+            <div class="glass-panel p-8 rounded-2xl text-center group hover:border-cyan-500/50 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-16 h-16 mx-auto bg-cyan-500/20 rounded-full flex items-center justify-center mb-6 text-cyan-400 group-hover:scale-110 transition duration-300">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">อีเมล (Email)</h3>
+                <p class="text-gray-400 mb-2">support@techforward.in.th</p>
+                <p class="text-xs text-cyan-400">ตอบกลับภายใน 24 ชั่วโมง</p>
+            </div>
+            
+            <!-- Phone -->
+            <div class="glass-panel p-8 rounded-2xl text-center group hover:border-purple-500/50 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 mx-auto bg-purple-500/20 rounded-full flex items-center justify-center mb-6 text-purple-400 group-hover:scale-110 transition duration-300">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">โทรศัพท์ (Phone)</h3>
+                <p class="text-gray-400 mb-2">02-123-4567</p>
+                <p class="text-xs text-purple-400">จันทร์ - ศุกร์ (09:00 - 18:00 น.)</p>
+            </div>
+
+            <!-- Location -->
+            <div class="glass-panel p-8 rounded-2xl text-center group hover:border-emerald-500/50 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 mx-auto bg-emerald-500/20 rounded-full flex items-center justify-center mb-6 text-emerald-400 group-hover:scale-110 transition duration-300">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">สถานที่ (Venue)</h3>
+                <p class="text-gray-400 mb-2">BITEC Bangna, กรุงเทพมหานคร</p>
+                <a href="#" class="text-xs text-emerald-400 hover:underline">เปิดดูแผนที่ Google Maps</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-[#050505] border-t border-gray-800/80 pt-10 pb-6 px-4 text-center text-gray-500 text-sm">
         <p>&copy; 2027 TechForward Summit. All rights reserved. | <a href="#" class="hover:text-cyan-400">Privacy Policy</a></p>
@@ -403,7 +446,7 @@
         });
 
         // 🚀 URL Google Apps Script (อย่าลืมเปลี่ยนเป็น URL ของคุณ)
-        const SCRIPT_URL = 'YOUR_WEB_APP_URL_HERE'; 
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFnp09VDXGq1sQuV9YYFbi5-vxYe_Lp3EASi85FLDlgYIkgo72H3Z2iltPICm9RviaUQ/exec'; 
 
         // Countdown Timer
         const targetDate = new Date("2027-05-25T09:00:00").getTime();
