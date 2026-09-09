@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechForward Summit 2025</title>
+    <title>TechForward Summit 2027 | The Future is Here</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -13,142 +13,182 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <style>
-        body { 
-            font-family: 'Kanit', sans-serif; 
-            background-color: #050505; 
-            color: #E2E8F0; 
-            overflow-x: hidden; 
-        }
-        /* ลูกเล่น: พื้นหลังตารางไซเบอร์ */
+        body { font-family: 'Kanit', sans-serif; background-color: #050505; color: #E2E8F0; overflow-x: hidden; }
         .bg-grid {
             background-size: 40px 40px;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
         .text-gradient { 
             background: linear-gradient(135deg, #A855F7, #06B6D4, #3B82F6); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            background-size: 200% 200%;
-            animation: gradientMove 5s ease infinite;
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            background-size: 200% 200%; animation: gradientMove 5s ease infinite;
         }
-        .glass-panel { 
-            background: rgba(15, 20, 30, 0.6); 
-            backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-        }
-        /* ลูกเล่น: แอนิเมชันลอยไปมา */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
+        .glass-panel { background: rgba(15, 20, 30, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card:hover { border-color: #06B6D4; box-shadow: 0 0 20px rgba(6,182,212,0.2); transform: translateY(-5px); }
+        
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         .animate-float { animation: float 4s ease-in-out infinite; }
         .animate-float-delay { animation: float 5s ease-in-out infinite; animation-delay: 2s; }
-        
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     </style>
 </head>
-<body class="antialiased selection:bg-cyan-500 selection:text-white pb-20 bg-grid">
+<body class="antialiased selection:bg-cyan-500 selection:text-white bg-grid">
 
-    <!-- แสงพื้นหลัง (Background Orbs) -->
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-gray-800/60 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-8 h-8 bg-gradient-to-tr from-purple-600 to-cyan-500 rounded-lg flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(6,182,212,0.5)]">TF</div>
+                    <span class="font-bold text-xl tracking-wide text-white">TechForward</span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+                    <a href="#about" class="hover:text-cyan-400 transition">เกี่ยวกับงาน</a>
+                    <a href="#tracks" class="hover:text-cyan-400 transition">หัวข้อหลัก</a>
+                    <a href="#speakers" class="hover:text-cyan-400 transition">วิทยากร</a>
+                    <a href="#pricing" class="hover:text-cyan-400 transition">ราคาบัตร</a>
+                </div>
+                <div>
+                    <a href="#register" class="bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg transition-transform hover:scale-105">ลงทะเบียนทันที</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Orbs -->
     <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div class="absolute top-[10%] left-[20%] w-[30rem] h-[30rem] bg-purple-700/20 rounded-full blur-[100px] animate-float"></div>
         <div class="absolute bottom-[10%] right-[10%] w-[25rem] h-[25rem] bg-cyan-700/20 rounded-full blur-[100px] animate-float-delay"></div>
     </div>
 
     <!-- Hero Section -->
-    <section class="pt-24 pb-12 px-4 text-center relative" data-aos="fade-down" data-aos-duration="1000">
-        
-        <!-- ป้ายวันที่และสถานที่จัดงาน -->
-        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-panel text-sm text-cyan-400 mb-8 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-            <svg class="w-4 h-4 animate-pulse text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
-            <span class="font-medium tracking-wide">25 - 26 พฤษภาคม 2025 <span class="text-gray-500 mx-2">|</span> BITEC Bangna, Bangkok</span>
+    <section class="pt-32 pb-16 px-4 text-center relative" data-aos="fade-down" data-aos-duration="1000">
+        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-panel text-sm text-cyan-400 mb-8 border border-cyan-500/30">
+            <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+            <span class="font-medium tracking-wide">25 - 26 พฤษภาคม 2027 <span class="text-gray-500 mx-2">|</span> BITEC Bangna</span>
         </div>
 
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-white leading-tight">
-            TechForward Summit 2025: <br>
-            <span class="text-gradient">ปลดล็อกศักยภาพสู่อนาคต</span>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white leading-tight">
+            TechForward Summit <br>
+            <span class="text-gradient">The Future is Here</span>
         </h1>
+        <p class="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">งานสัมมนาด้านเทคโนโลยีระดับสากลที่รวมผู้นำนวัตกรรม AI, Cloud และ Cybersecurity มาไว้ในที่เดียว เพื่อปลดล็อกศักยภาพธุรกิจคุณ</p>
         
-        <p class="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">กรุณากรอกข้อมูลเพื่อลงทะเบียนรับ E-Ticket และ QR Code สำหรับเข้างาน</p>
-        
-        <!-- Countdown Timer (อัปเดตให้มีวินาที) -->
-        <div class="flex justify-center items-center gap-3 md:gap-5 mb-8" data-aos="zoom-in" data-aos-delay="300">
-            <div class="glass-panel p-3 md:p-5 rounded-xl w-20 md:w-28 text-center shadow-lg border-b-2 border-purple-500">
+        <!-- Countdown -->
+        <div class="flex justify-center items-center gap-3 md:gap-5 mb-12" data-aos="zoom-in" data-aos-delay="300">
+            <div class="glass-panel p-3 md:p-5 rounded-xl w-20 md:w-28 text-center border-b-2 border-purple-500">
                 <div id="days" class="text-3xl md:text-5xl font-bold text-white">00</div>
-                <div class="text-xs md:text-sm text-gray-400 mt-1 uppercase tracking-wider">Days</div>
+                <div class="text-xs text-gray-400 mt-1 uppercase">Days</div>
             </div>
-            <div class="text-2xl md:text-4xl font-bold text-gray-700 animate-pulse">:</div>
-            <div class="glass-panel p-3 md:p-5 rounded-xl w-20 md:w-28 text-center shadow-lg border-b-2 border-blue-500">
+            <div class="text-2xl font-bold text-gray-700">:</div>
+            <div class="glass-panel p-3 md:p-5 rounded-xl w-20 md:w-28 text-center border-b-2 border-cyan-500">
                 <div id="hours" class="text-3xl md:text-5xl font-bold text-white">00</div>
-                <div class="text-xs md:text-sm text-gray-400 mt-1 uppercase tracking-wider">Hours</div>
+                <div class="text-xs text-gray-400 mt-1 uppercase">Hours</div>
             </div>
-            <div class="text-2xl md:text-4xl font-bold text-gray-700 animate-pulse">:</div>
-            <div class="glass-panel p-3 md:p-5 rounded-xl w-20 md:w-28 text-center shadow-lg border-b-2 border-cyan-500">
+            <div class="text-2xl font-bold text-gray-700">:</div>
+            <div class="glass-panel p-3 md:p-5 rounded-xl w-20 md:w-28 text-center border-b-2 border-emerald-500">
                 <div id="minutes" class="text-3xl md:text-5xl font-bold text-white">00</div>
-                <div class="text-xs md:text-sm text-gray-400 mt-1 uppercase tracking-wider">Mins</div>
+                <div class="text-xs text-gray-400 mt-1 uppercase">Mins</div>
             </div>
-            <div class="text-2xl md:text-4xl font-bold text-gray-700 animate-pulse">:</div>
-            <div class="glass-panel p-3 md:p-5 rounded-xl w-20 md:w-28 text-center shadow-lg border-b-2 border-emerald-500">
-                <div id="seconds" class="text-3xl md:text-5xl font-bold text-emerald-400">00</div>
-                <div class="text-xs md:text-sm text-gray-400 mt-1 uppercase tracking-wider">Secs</div>
+            <div class="text-2xl font-bold text-gray-700">:</div>
+            <div class="glass-panel p-3 md:p-5 rounded-xl w-20 md:w-28 text-center border-b-2 border-pink-500">
+                <div id="seconds" class="text-3xl md:text-5xl font-bold text-pink-400">00</div>
+                <div class="text-xs text-gray-400 mt-1 uppercase">Secs</div>
             </div>
         </div>
     </section>
 
-    <!-- Registration Form Section -->
-    <section id="register" class="max-w-4xl mx-auto px-4" data-aos="fade-up" data-aos-delay="500">
-        <div class="glass-panel p-6 md:p-10 rounded-2xl shadow-2xl relative">
+    <!-- [NEW] About Section -->
+    <section id="about" class="py-20 px-4 max-w-7xl mx-auto border-t border-gray-800/50">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-3xl font-bold text-white mb-6">ทำไมคุณถึงไม่ควรพลาด <br><span class="text-cyan-400">TechForward 2027</span></h2>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                    ก้าวข้ามขีดจำกัดของเทคโนโลยีในยุคดิจิทัล เรียนรู้จากผู้เชี่ยวชาญระดับโลกกว่า 30 ท่าน ที่จะมาแชร์ Use Case จริง กลยุทธ์การปรับตัว และเจาะลึกเทรนด์ที่กำลังจะเปลี่ยนโลกภายในปี 2030
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-gray-300"><span class="bg-cyan-500/20 text-cyan-400 p-2 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span> <strong>Insightful Keynotes:</strong> เจาะลึกเทรนด์จากผู้นำตัวจริง</li>
+                    <li class="flex items-center gap-3 text-gray-300"><span class="bg-purple-500/20 text-purple-400 p-2 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span> <strong>Premium Networking:</strong> เชื่อมต่อกับ C-Level และ Tech Lead กว่า 1,500 คน</li>
+                    <li class="flex items-center gap-3 text-gray-300"><span class="bg-emerald-500/20 text-emerald-400 p-2 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg></span> <strong>Hands-on Labs:</strong> เวิร์กช็อปเขียนโค้ดและทำระบบจริง</li>
+                </ul>
+            </div>
+            <div data-aos="fade-left" class="relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop" alt="Event Vibe" class="rounded-2xl relative z-10 border border-gray-700 grayscale hover:grayscale-0 transition duration-500 object-cover h-80 w-full">
+            </div>
+        </div>
+    </section>
 
+    <!-- [NEW] Tech Tracks Section -->
+    <section id="tracks" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-bold text-white mb-2">3 ธีมเนื้อหาหลัก (Tech Tracks)</h2>
+            <p class="text-gray-400">ครอบคลุมทุกมิติของเทคโนโลยีที่ขับเคลื่อนโลกอนาคต</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Track 1 -->
+            <div class="glass-panel glass-card p-8 rounded-2xl text-center transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-16 h-16 mx-auto bg-purple-500/20 rounded-full flex items-center justify-center mb-6 text-purple-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">AI & Machine Learning</h3>
+                <p class="text-sm text-gray-400">Generative AI, Autonomous Agents, LLM Infrastructure และการนำ AI มาใช้ในองค์กรจริง</p>
+            </div>
+            <!-- Track 2 -->
+            <div class="glass-panel glass-card p-8 rounded-2xl text-center transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 mx-auto bg-cyan-500/20 rounded-full flex items-center justify-center mb-6 text-cyan-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Cloud-Native & DevOps</h3>
+                <p class="text-sm text-gray-400">Microservices Architecture, Kubernetes Mastery, CI/CD Pipelines และ Serverless</p>
+            </div>
+            <!-- Track 3 -->
+            <div class="glass-panel glass-card p-8 rounded-2xl text-center transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 mx-auto bg-emerald-500/20 rounded-full flex items-center justify-center mb-6 text-emerald-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Cybersecurity & Trust</h3>
+                <p class="text-sm text-gray-400">Zero-Trust Network, DevSecOps, Data Privacy และการป้องกันภัยคุกคามทางไซเบอร์ยุคใหม่</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form (The Core System) -->
+    <section id="register" class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center mb-10" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">ฟอร์มลงทะเบียน (Registration)</h2>
+            <p class="text-gray-400">กรุณากรอกข้อมูลเพื่อรับ E-Ticket และ QR Code สำหรับเข้างาน</p>
+        </div>
+
+        <div class="max-w-4xl mx-auto glass-panel p-6 md:p-10 rounded-2xl shadow-2xl relative" data-aos="fade-up" data-aos-delay="200">
             <form id="registerForm" class="space-y-10 relative z-10">
                 
-                <!-- Step 1: Personal Info -->
-                <div data-aos="fade-right" data-aos-delay="600">
+                <!-- ข้อมูลส่วนตัว -->
+                <div>
                     <h3 class="flex items-center gap-3 text-lg font-bold text-white mb-6 pb-2 border-b border-gray-800">
-                        <span class="bg-gradient-to-r from-purple-600 to-cyan-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm shadow-[0_0_10px_rgba(168,85,247,0.5)]">1</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-cyan-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">1</span>
                         ข้อมูลส่วนตัวและองค์กรผู้สมัคร
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-2">ชื่อ - นามสกุล *</label>
-                            <input type="text" name="name" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-2">อีเมลองค์กร *</label>
-                            <input type="email" name="email" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-2">เบอร์โทรศัพท์ *</label>
-                            <input type="tel" name="phone" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-2">ชื่อองค์กร / บริษัท *</label>
-                            <input type="text" name="company" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-sm text-gray-400 mb-2">ตำแหน่งงาน</label>
-                            <input type="text" name="role" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition">
-                        </div>
+                        <input type="text" name="name" placeholder="ชื่อ - นามสกุล *" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
+                        <input type="email" name="email" placeholder="อีเมลองค์กร *" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
+                        <input type="tel" name="phone" placeholder="เบอร์โทรศัพท์ *" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
+                        <input type="text" name="company" placeholder="ชื่อองค์กร / บริษัท *" required class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
+                        <input type="text" name="role" placeholder="ตำแหน่งงาน" class="md:col-span-2 w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
                     </div>
                 </div>
 
-                <!-- Step 2: Ticket Selection & Dynamic Price -->
-                <div data-aos="fade-right" data-aos-delay="700">
+                <!-- เลือกบัตร -->
+                <div>
                     <h3 class="flex items-center gap-3 text-lg font-bold text-white mb-6 pb-2 border-b border-gray-800">
-                        <span class="bg-gradient-to-r from-purple-600 to-cyan-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm shadow-[0_0_10px_rgba(168,85,247,0.5)]">2</span>
-                        เลือกระดับบัตรและจำนวนที่สั่งซื้อ
+                        <span class="bg-gradient-to-r from-purple-600 to-cyan-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">2</span>
+                        เลือกระดับบัตรและจำนวน
                     </h3>
-                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <label class="cursor-pointer transform hover:-translate-y-1 transition duration-300">
+                        <label class="cursor-pointer group">
                             <input type="radio" name="ticket" value="Regular Pass" data-price="4500" class="peer sr-only" checked onchange="calculatePrice()">
-                            <div class="h-full rounded-xl border border-gray-700 bg-[#0A0D14] p-5 peer-checked:border-cyan-500 peer-checked:bg-cyan-900/20 peer-checked:shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all relative overflow-hidden">
+                            <div class="rounded-xl border border-gray-700 bg-[#0A0D14] p-5 peer-checked:border-cyan-500 peer-checked:bg-cyan-900/20 transition-all relative overflow-hidden">
                                 <div class="absolute top-0 right-0 bg-cyan-500 text-white text-[10px] px-2 py-1 rounded-bl-lg font-bold">RECOMMENDED</div>
                                 <div class="flex justify-between items-start mb-2">
                                     <div class="font-bold text-white text-lg">Regular Pass</div>
@@ -157,9 +197,9 @@
                                 <div class="text-sm text-gray-400">เข้าฟังทุกเวทีสัมมนาหลัก</div>
                             </div>
                         </label>
-                        <label class="cursor-pointer transform hover:-translate-y-1 transition duration-300">
+                        <label class="cursor-pointer group">
                             <input type="radio" name="ticket" value="VIP Pass" data-price="8900" class="peer sr-only" onchange="calculatePrice()">
-                            <div class="h-full rounded-xl border border-gray-700 bg-[#0A0D14] p-5 peer-checked:border-purple-500 peer-checked:bg-purple-900/20 peer-checked:shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all">
+                            <div class="rounded-xl border border-gray-700 bg-[#0A0D14] p-5 peer-checked:border-purple-500 peer-checked:bg-purple-900/20 transition-all">
                                 <div class="flex justify-between items-start mb-2">
                                     <div class="font-bold text-white text-lg">VIP All-Access</div>
                                     <div class="text-purple-400 font-bold text-xl">฿8,900</div>
@@ -168,112 +208,147 @@
                             </div>
                         </label>
                     </div>
-
-                    <!-- Quantity Counter -->
+                    
                     <div class="flex items-center justify-between bg-[#0A0D14] border border-gray-700 p-4 rounded-xl">
-                        <div>
-                            <div class="text-white font-medium">จำนวนผู้เข้าร่วม (ท่าน)</div>
-                            <div class="text-xs text-gray-500">สูงสุด 10 ท่าน / การทำรายการ</div>
-                        </div>
+                        <div class="text-white font-medium">จำนวนผู้เข้าร่วม (ท่าน)</div>
                         <div class="flex items-center gap-4 bg-[#151A27] border border-gray-700 rounded-lg p-1">
-                            <button type="button" onclick="updatePax(-1)" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-600 rounded transition">-</button>
+                            <button type="button" onclick="updatePax(-1)" class="w-8 h-8 text-gray-400 hover:text-white bg-gray-800 rounded">-</button>
                             <span id="paxDisplay" class="w-8 text-center text-cyan-400 font-bold text-xl">1</span>
-                            <button type="button" onclick="updatePax(1)" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-600 rounded transition">+</button>
+                            <button type="button" onclick="updatePax(1)" class="w-8 h-8 text-gray-400 hover:text-white bg-gray-800 rounded">+</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Step 3: Workshop (ตัดอาหารออก) -->
-                <div data-aos="fade-right" data-aos-delay="800">
-                    <h3 class="flex items-center gap-3 text-lg font-bold text-white mb-6 pb-2 border-b border-gray-800">
-                        <span class="bg-gradient-to-r from-purple-600 to-cyan-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm shadow-[0_0_10px_rgba(168,85,247,0.5)]">3</span>
-                        เวิร์กช็อป (Workshop)
-                    </h3>
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-2">เลือกหัวข้อเวิร์กช็อปที่คุณสนใจ (1 หัวข้อ)</label>
-                        <select name="workshop" class="w-full bg-[#0A0D14] border border-gray-700 rounded-lg px-4 py-4 text-white focus:outline-none focus:border-cyan-500 appearance-none">
-                            <option value="None">ไม่เข้าร่วม Workshop (ฟังสัมมนาหลักเท่านั้น)</option>
-                            <option value="AI Agents">Hands-on RAG & Generative AI Agents Architecture</option>
-                            <option value="Microservices">Building High-Performance Microservices</option>
-                            <option value="Cyber Security">Zero-Trust Cloud Security Lab</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Payment Method -->
-                <div data-aos="fade-up" data-aos-delay="900">
-                    <label class="block text-sm text-gray-400 mb-3 font-medium">ช่องทางการชำระเงิน</label>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <label class="cursor-pointer flex items-center gap-3 p-4 border border-gray-700 bg-[#0A0D14] rounded-lg hover:border-cyan-500 transition">
-                            <input type="radio" name="payment" value="บัตรเครดิต" checked class="text-cyan-500 focus:ring-cyan-500 bg-[#0A0D14]">
-                            <span class="text-white text-sm font-medium">บัตรเครดิต / เดบิต (VISA, Mastercard)</span>
-                        </label>
-                        <label class="cursor-pointer flex items-center gap-3 p-4 border border-gray-700 bg-[#0A0D14] rounded-lg hover:border-cyan-500 transition">
-                            <input type="radio" name="payment" value="โอนเงิน" class="text-cyan-500 focus:ring-cyan-500 bg-[#0A0D14]">
-                            <span class="text-white text-sm font-medium">โอนเงินเข้าบัญชี / QR PromptPay</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Billing Summary Panel (ออกแบบใหม่) -->
-                <div class="bg-gradient-to-br from-[#0A0D14] to-[#111827] p-6 md:p-8 rounded-xl border border-gray-700 shadow-2xl mt-8 relative overflow-hidden" data-aos="zoom-in" data-aos-delay="1000">
+                <!-- Summary Panel -->
+                <div class="bg-gradient-to-br from-[#0A0D14] to-[#111827] p-6 md:p-8 rounded-xl border border-gray-700 shadow-xl relative overflow-hidden">
                     <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-2xl"></div>
-                    
-                    <h4 class="text-lg font-bold text-white mb-6 border-b border-gray-700 pb-3">สรุปยอดคำสั่งซื้อ (Order Summary)</h4>
-                    
-                    <div class="space-y-3 mb-6">
-                        <div class="flex justify-between text-sm text-gray-300">
-                            <span id="summaryText">Regular Pass (1 ท่าน)</span>
-                            <span id="summarySubtotal" class="font-medium">฿4,500</span>
-                        </div>
-                        <div class="flex justify-between text-sm text-gray-400">
-                            <span>ส่วนลดพิเศษ</span>
-                            <span class="text-emerald-400">- ฿0</span>
-                        </div>
-                        <div class="flex justify-between text-sm text-gray-400 border-b border-gray-700 pb-4">
-                            <span>ภาษีมูลค่าเพิ่ม VAT (7%)</span>
-                            <span id="summaryVat">฿315</span>
-                        </div>
-                    </div>
-                    
                     <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                        <div>
-                            <div class="text-sm text-gray-400 mb-1">ยอดชำระสุทธิ (Total)</div>
-                            <div id="summaryTotal" class="text-3xl font-bold text-cyan-400 tracking-wider">฿4,815</div>
+                        <div class="w-full md:w-1/2 space-y-2">
+                            <div class="flex justify-between text-sm text-gray-300">
+                                <span id="summaryText">Regular Pass (1 ท่าน)</span>
+                                <span id="summarySubtotal">฿4,500</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-400 border-b border-gray-700 pb-3 mb-2">
+                                <span>ภาษีมูลค่าเพิ่ม VAT (7%)</span>
+                                <span id="summaryVat">฿315</span>
+                            </div>
+                            <div class="flex justify-between items-end pt-2">
+                                <span class="text-gray-400 text-sm">ยอดชำระสุทธิ:</span>
+                                <span id="summaryTotal" class="text-3xl font-bold text-cyan-400">฿4,815</span>
+                            </div>
                         </div>
                         
-                        <div class="w-full md:w-auto flex-grow text-right">
-                            <!-- Hidden inputs for Google Sheet -->
+                        <div class="w-full md:w-auto text-right">
                             <input type="hidden" name="pax" id="hiddenPax" value="1">
                             <input type="hidden" name="total" id="hiddenTotal" value="4815">
+                            <input type="hidden" name="payment" value="โอนเงิน/บัตรเครดิต">
+                            <input type="hidden" name="workshop" value="ไม่ได้เลือก">
                             
-                            <button type="submit" id="submitBtn" class="w-full md:w-auto bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold py-4 px-10 rounded-lg shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all transform hover:-translate-y-1">
+                            <button type="submit" id="submitBtn" class="w-full md:w-auto bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold py-4 px-10 rounded-lg shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all transform hover:-translate-y-1">
                                 ยืนยันการลงทะเบียน
                             </button>
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
     </section>
 
+    <!-- [NEW] Testimonials Section -->
+    <section class="py-20 px-4 bg-[#0A0D14] border-y border-gray-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-white mb-12">เสียงตอบรับจากผู้ร่วมงานปีที่ผ่านมา</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
+                    <p class="text-gray-400 text-sm italic mb-6">"เนื้อหาแน่นมาก ได้เห็น Use case การใช้ AI ในองค์กรที่นำไปปรับใช้ได้จริง Networking session ก็ช่วยให้เจอพาร์ทเนอร์ใหม่ๆ เพียบ"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full"></div>
+                        <div><div class="text-white text-sm font-bold">คุณกิตติชัย</div><div class="text-xs text-gray-500">CTO, Tech Startup</div></div>
+                    </div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
+                    <p class="text-gray-400 text-sm italic mb-6">"คุ้มค่าตั๋ว VIP มาก Lounge ดี อาหารอร่อย และได้คุยกับ Speaker แบบ Exclusive สุดๆ ปีหน้าไม่พลาดแน่นอนครับ"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full"></div>
+                        <div><div class="text-white text-sm font-bold">ดร. สมหญิง</div><div class="text-xs text-gray-500">Head of Data, Enterprise</div></div>
+                    </div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
+                    <p class="text-gray-400 text-sm italic mb-6">"ระบบจัดงานดีเยี่ยม การเช็คอินราบรื่น เนื้อหาฝั่ง DevOps อัปเดตล่าสุด ทำให้ทีมเราวางแผน Architecture ได้เฉียบคมขึ้น"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full"></div>
+                        <div><div class="text-white text-sm font-bold">คุณนัท</div><div class="text-xs text-gray-500">Senior Cloud Engineer</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [NEW] Sponsors Tier Section -->
+    <section class="py-20 px-4 max-w-7xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">ผู้สนับสนุนหลักอย่างเป็นทางการ</h2>
+        <p class="text-gray-400 mb-12">ขอขอบคุณพาร์ทเนอร์ที่ร่วมผลักดันวงการเทคโนโลยีไทย</p>
+        
+        <!-- Platinum -->
+        <div class="mb-12">
+            <h3 class="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Platinum Sponsors</h3>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all">
+                <div class="text-3xl font-black text-white">AWS</div>
+                <div class="text-3xl font-black text-white">Google Cloud</div>
+                <div class="text-3xl font-black text-white">Microsoft</div>
+            </div>
+        </div>
+        
+        <!-- Gold -->
+        <div>
+            <h3 class="text-sm font-bold text-yellow-500 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Gold Sponsors</h3>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-12 items-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all text-xl font-bold text-gray-300">
+                <div>Datadog</div>
+                <div>Cloudflare</div>
+                <div>Palo Alto Networks</div>
+                <div>MongoDB</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#050505] border-t border-gray-800/80 pt-10 pb-6 px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2027 TechForward Summit. All rights reserved. | <a href="#" class="hover:text-cyan-400">Privacy Policy</a></p>
+    </footer>
+
+    <!-- [NEW] Floating Action Button (กลับขึ้นบน / ลงทะเบียน) -->
+    <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+        <a href="#register" class="bg-cyan-600 hover:bg-cyan-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.5)] transition transform hover:scale-110" title="ลงทะเบียน">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+        </a>
+        <button onclick="window.scrollTo(0,0)" class="bg-gray-800 hover:bg-gray-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition transform hover:scale-110 border border-gray-700" title="กลับขึ้นบน">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+        </button>
+    </div>
+
     <!-- Scripts -->
     <script>
-        // 🚀 1. เริ่มต้น AOS Animation
+        // AOS Animation
         AOS.init({ once: true, offset: 50 });
 
-        // 🚀 2. URL ของ Google Apps Script (ใส่ URL ของคุณตรงนี้)
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyc.../exec'; 
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) { nav.classList.add('shadow-lg', 'bg-[#050505]/95'); } 
+            else { nav.classList.remove('shadow-lg', 'bg-[#050505]/95'); }
+        });
 
-        // 🚀 3. ระบบ Countdown (อัปเดตมีวินาที)
-        // ตั้งเป้าหมายเป็น 25 พฤษภาคม 2025 เวลา 09:00 น.
-        const targetDate = new Date("2025-05-25T09:00:00").getTime();
-        
+        // 🚀 URL Google Apps Script (ใส่ของคุณตรงนี้)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFnp09VDXGq1sQuV9YYFbi5-vxYe_Lp3EASi85FLDlgYIkgo72H3Z2iltPICm9RviaUQ/exec'; 
+
+        // Countdown Timer (เป้าหมาย 25 พฤษภาคม 2027)
+        const targetDate = new Date("2027-05-25T09:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
             const distance = targetDate - now;
-            
             if(distance > 0) {
                 document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
                 document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
@@ -282,76 +357,48 @@
             }
         }, 1000);
 
-        // 🚀 4. ระบบคำนวณราคาแบบเรียลไทม์
+        // Price Calculator
         let currentPax = 1;
-
         function updatePax(change) {
-            currentPax += change;
-            if (currentPax < 1) currentPax = 1;
-            if (currentPax > 10) currentPax = 10;
+            currentPax = Math.max(1, Math.min(10, currentPax + change));
             document.getElementById('paxDisplay').innerText = currentPax;
             document.getElementById('hiddenPax').value = currentPax;
             calculatePrice();
         }
 
         function calculatePrice() {
-            const selectedTicket = document.querySelector('input[name="ticket"]:checked');
-            const ticketName = selectedTicket.value;
-            const ticketPrice = parseInt(selectedTicket.getAttribute('data-price'));
+            const ticketInput = document.querySelector('input[name="ticket"]:checked');
+            const ticketPrice = parseInt(ticketInput.getAttribute('data-price'));
             
             const subtotal = ticketPrice * currentPax;
             const vat = subtotal * 0.07;
             const total = subtotal + vat;
 
-            document.getElementById('summaryText').innerText = `${ticketName} (${currentPax} ท่าน)`;
+            document.getElementById('summaryText').innerText = `${ticketInput.value} (${currentPax} ท่าน)`;
             document.getElementById('summarySubtotal').innerText = '฿' + subtotal.toLocaleString();
             document.getElementById('summaryVat').innerText = '฿' + vat.toLocaleString();
             document.getElementById('summaryTotal').innerText = '฿' + total.toLocaleString();
             document.getElementById('hiddenTotal').value = total;
         }
 
-        // 🚀 5. ระบบส่งข้อมูลเข้า Google Sheets
+        // Form Submit to Google Sheets
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> กำลังส่งข้อมูล...`;
+            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> กำลังประมวลผล...`;
             btn.disabled = true;
 
-            const formData = new FormData(this);
-            const data = new URLSearchParams(formData);
-
-            fetch(SCRIPT_URL, { method: 'POST', body: data })
-            .then(response => response.json())
-            .then(result => {
-                Swal.fire({
-                    title: 'ลงทะเบียนสำเร็จ!',
-                    text: 'ระบบได้รับข้อมูลของท่านแล้ว กรุณาตรวจสอบอีเมล',
-                    icon: 'success',
-                    background: '#151A27',
-                    color: '#fff',
-                    confirmButtonColor: '#06B6D4',
-                    backdrop: `rgba(0,0,0,0.8)`
-                });
+            fetch(SCRIPT_URL, { method: 'POST', body: new URLSearchParams(new FormData(this)) })
+            .then(res => res.json())
+            .then(res => {
+                Swal.fire({ title: 'สำเร็จ!', text: 'ได้รับข้อมูลเรียบร้อย E-Ticket จะถูกส่งไปที่อีเมลของคุณ', icon: 'success', background: '#151A27', color: '#fff', confirmButtonColor: '#06B6D4' });
                 this.reset();
-                currentPax = 1;
-                document.getElementById('paxDisplay').innerText = 1;
-                calculatePrice();
+                currentPax = 1; updatePax(0);
             })
-            .catch(error => {
-                Swal.fire({
-                    title: 'ข้อผิดพลาด!',
-                    text: 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง',
-                    icon: 'error',
-                    background: '#151A27',
-                    color: '#fff',
-                    confirmButtonColor: '#ef4444'
-                });
-            })
-            .finally(() => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+            .catch(() => Swal.fire({ title: 'ผิดพลาด', text: 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้', icon: 'error', background: '#151A27', color: '#fff' }))
+            .finally(() => { 
+                btn.innerHTML = 'ยืนยันการลงทะเบียน'; 
+                btn.disabled = false; 
             });
         });
     </script>

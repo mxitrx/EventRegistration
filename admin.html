@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechForward | Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js สำหรับทำกราฟ -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Kanit', sans-serif; background-color: #050505; color: #E2E8F0; }
+        .bg-grid { background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; }
+        .glass-panel { background: rgba(15, 20, 30, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        
+        /* สไตล์ตารางแบบพรีเมียม */
+        table { border-collapse: collapse; width: 100%; }
+        th { background-color: rgba(255, 255, 255, 0.02); color: #94A3B8; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; padding: 16px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        td { border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 16px; font-size: 0.875rem; transition: background-color 0.2s; }
+        tr:hover td { background-color: rgba(255, 255, 255, 0.02); }
+    </style>
+</head>
+<body class="bg-grid min-h-screen">
+
+    <!-- Topbar -->
+    <nav class="sticky top-0 z-50 glass-panel border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-gradient-to-tr from-purple-600 to-cyan-500 rounded-lg flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(6,182,212,0.5)]">TF</div>
+                <span class="font-bold text-xl text-white">Admin Dashboard</span>
+                <span class="hidden md:flex ml-3 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> LIVE
+                </span>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="exportCSV()" class="hidden md:flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm transition border border-gray-700">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Export CSV
+                </button>
+                <button onclick="fetchData()" class="flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-lg">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    รีเฟรช
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- แถวสถิติ (Stats Widgets) -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="glass-panel p-5 rounded-2xl relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-16 h-16 bg-blue-500/20 rounded-full blur-xl"></div>
+                <div class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">ยอดผู้เข้าร่วม (Pax)</div>
+                <div class="text-3xl font-bold text-white flex items-end gap-2" id="statPax">0 <span class="text-sm font-normal text-gray-500 mb-1">คน</span></div>
+            </div>
+            
+            <div class="glass-panel p-5 rounded-2xl relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-16 h-16 bg-emerald-500/20 rounded-full blur-xl"></div>
+                <div class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">ยอดขายรวม (Revenue)</div>
+                <div class="text-3xl font-bold text-emerald-400" id="statRev">฿0</div>
+            </div>
+            
+            <div class="glass-panel p-5 rounded-2xl">
+                <div class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">Regular Pass</div>
+                <div class="text-2xl font-bold text-cyan-400" id="statRegular">0</div>
+            </div>
+            
+            <div class="glass-panel p-5 rounded-2xl">
+                <div class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">VIP Pass</div>
+                <div class="text-2xl font-bold text-purple-400" id="statVIP">0</div>
+            </div>
+        </div>
+
+        <!-- แถวกราฟ และ ตารางค้นหา -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <!-- กราฟสัดส่วนบัตร -->
+            <div class="glass-panel p-6 rounded-2xl lg:col-span-1 flex flex-col justify-center items-center">
+                <h3 class="text-sm font-medium text-gray-300 w-full text-left mb-4">สัดส่วนประเภทบัตร</h3>
+                <div class="w-48 h-48">
+                    <canvas id="ticketChart"></canvas>
+                </div>
+            </div>
+
+            <!-- ส่วนของตารางข้อมูล -->
+            <div class="glass-panel rounded-2xl lg:col-span-2 flex flex-col h-[600px]">
+                <div class="p-5 border-b border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <h2 class="text-lg font-bold text-white">รายชื่อผู้ลงทะเบียน</h2>
+                    <div class="relative w-full sm:w-64">
+                        <svg class="w-4 h-4 absolute left-3 top-2.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="ค้นหาชื่อ, อีเมล, บริษัท..." class="bg-[#050505] border border-gray-700 text-white pl-10 pr-4 py-2 rounded-lg text-sm focus:outline-none focus:border-cyan-500 w-full transition">
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto flex-grow">
+                    <table id="dataTable" class="w-full">
+                        <thead class="sticky top-0 bg-[#0A0D14]/90 backdrop-blur-sm z-10">
+                            <tr>
+                                <th>ผู้ลงทะเบียน</th>
+                                <th>องค์กร/ตำแหน่ง</th>
+                                <th>ประเภทบัตร</th>
+                                <th>ยอดสุทธิ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td colspan="4" class="text-center py-20">
+                                    <svg class="animate-spin h-8 w-8 text-cyan-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    <span class="text-gray-400">กำลังดึงข้อมูลจาก Google Sheets...</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 🚀 URL ของ Google Apps Script (ใส่ลิงก์ของคุณที่นี่)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFnp09VDXGq1sQuV9YYFbi5-vxYe_Lp3EASi85FLDlgYIkgo72H3Z2iltPICm9RviaUQ/exec';
+        
+        let chartInstance = null;
+        let globalData = []; // เก็บข้อมูลสำหรับ Export CSV
+
+        function fetchData() {
+            fetch(SCRIPT_URL)
+                .then(res => res.json())
+                .then(data => {
+                    globalData = data;
+                    processData(data);
+                })
+                .catch(err => {
+                    document.getElementById('tableBody').innerHTML = '<tr><td colspan="4" class="text-center py-10 text-red-400">โหลดข้อมูลไม่สำเร็จ กรุณาลองใหม่</td></tr>';
+                });
+        }
+
+        function processData(data) {
+            const tbody = document.getElementById('tableBody');
+            
+            if(data.length <= 1) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-20 text-gray-500">ยังไม่มีข้อมูลการลงทะเบียน</td></tr>';
+                updateDashboard(0, 0, 0, 0);
+                return;
+            }
+
+            const rows = data.slice(1).reverse(); // เรียงคนล่าสุดขึ้นก่อน
+            let totalPax = 0, totalRev = 0, countRegular = 0, countVIP = 0;
+            tbody.innerHTML = '';
+
+            rows.forEach(row => {
+                // คอลัมน์อ้างอิง: [0:Time, 1:Name, 2:Email, 3:Phone, 4:Company, 5:Role, 6:Ticket, 7:Pax, 8:Workshop, 9:Payment, 10:Total]
+                const date = new Date(row[0]).toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' });
+                const name = row[1], email = row[2], phone = row[3], company = row[4], role = row[5];
+                const ticket = row[6] || "-";
+                const pax = parseInt(row[7]) || 1;
+                const total = parseFloat(row[10]) || 0;
+
+                // คำนวณสถิติ
+                totalPax += pax;
+                totalRev += total;
+                if(ticket.includes('Regular')) countRegular += pax;
+                if(ticket.includes('VIP')) countVIP += pax;
+
+                // ตกแต่งป้ายชื่อบัตร (Badge)
+                let ticketBadge = '';
+                if(ticket.includes('VIP')) {
+                    ticketBadge = `<span class="bg-purple-500/20 text-purple-400 border border-purple-500/30 px-2 py-1 rounded text-xs font-bold uppercase">${ticket}</span>`;
+                } else {
+                    ticketBadge = `<span class="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-2 py-1 rounded text-xs font-bold uppercase">${ticket}</span>`;
+                }
+
+                // สร้างแถวตาราง
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <div class="font-medium text-white">${name}</div>
+                        <div class="text-xs text-gray-400 mt-1">${email}</div>
+                        <div class="text-xs text-gray-500">${phone}</div>
+                    </td>
+                    <td>
+                        <div class="text-gray-300">${company}</div>
+                        <div class="text-xs text-gray-500 mt-1">${role}</div>
+                    </td>
+                    <td>
+                        ${ticketBadge}
+                        <div class="text-xs text-gray-400 mt-2">จำนวน: <span class="text-white font-medium">${pax} ท่าน</span></div>
+                    </td>
+                    <td>
+                        <div class="font-bold text-emerald-400">฿${total.toLocaleString()}</div>
+                        <div class="text-[10px] text-gray-500 mt-1">${date}</div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // อัปเดตตัวเลขและกราฟ
+            updateDashboard(totalPax, totalRev, countRegular, countVIP);
+        }
+
+        function updateDashboard(pax, rev, reg, vip) {
+            document.getElementById('statPax').innerHTML = `${pax} <span class="text-sm font-normal text-gray-500 mb-1">คน</span>`;
+            document.getElementById('statRev').innerText = `฿${rev.toLocaleString()}`;
+            document.getElementById('statRegular').innerText = reg;
+            document.getElementById('statVIP').innerText = vip;
+
+            // วาดกราฟโดนัท (Doughnut Chart)
+            const ctx = document.getElementById('ticketChart').getContext('2d');
+            if(chartInstance) chartInstance.destroy(); // ลบกราฟเก่าถ้ามีการรีเฟรช
+            
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Regular Pass', 'VIP Pass'],
+                    datasets: [{
+                        data: [reg, vip],
+                        backgroundColor: ['#06B6D4', '#A855F7'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { theme: 'dark' }
+                    }
+                }
+            });
+        }
+
+        // ค้นหาในตาราง
+        function searchTable() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const tr = document.getElementById("tableBody").getElementsByTagName("tr");
+            
+            for (let i = 0; i < tr.length; i++) {
+                const text = tr[i].innerText.toLowerCase();
+                tr[i].style.display = text.includes(input) ? "" : "none";
+            }
+        }
+
+        // ฟังก์ชัน Export CSV
+        function exportCSV() {
+            if(globalData.length <= 1) return alert('ไม่มีข้อมูลให้ Export');
+            
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // รองรับภาษาไทย (BOM)
+            globalData.forEach(rowArray => {
+                let row = rowArray.map(item => `"${item}"`).join(",");
+                csvContent += row + "\r\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Summit_Registrations_${new Date().getTime()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // โหลดข้อมูลอัตโนมัติเมื่อเปิดหน้าเว็บ
+        window.onload = fetchData;
+    </script>
+</body>
+</html>
