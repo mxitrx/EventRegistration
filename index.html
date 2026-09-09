@@ -687,7 +687,7 @@
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzr6BFee63NXbie-BVb6DE1ZMyw0zN_RDXzqR7h008mg6HgG_Vr4NA_p2pvz_FQ61-A_Q/exec'; 
 
         // [FIXED] Countdown Timer - แก้ไขให้เป้าหมายตรงกับปี 2026
-        const targetDate = new Date("2026-09-10T09:00:00").getTime();
+        const targetDate = new Date("2026-09-17T09:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
             const distance = targetDate - now;
@@ -1061,6 +1061,91 @@ function checkRole() {
                 sponsorHeading.style.marginBottom = '0.5rem';
                 sponsorHeading.nextElementSibling.style.marginBottom = '0';
             }
+        });
+    </script>
+   <!-- ========================================================== -->
+    <!-- NEW: YOUTUBE EMBED & PLAYLIST (รองรับการใส่ลิงก์เต็ม) ADD-ON -->
+    <!-- วางโค้ดนี้ไว้เหนือแท็ก </body> ล่างสุด โดยไม่ต้องแก้โค้ดเดิม -->
+    <!-- ========================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. ใส่ลิงก์ YouTube แบบเต็มๆ หรือลิงก์แชร์สั้นๆ ได้เลยที่นี่
+            const videoLinks = {
+                main: 'https://www.youtube.com/watch?v=61cJXq87sWQ&list=RD61cJXq87sWQ&start_radio=1', // ลิงก์คลิปหลัก (กล่องใหญ่)
+                playlist: [
+                    'https://www.youtube.com/watch?v=GBJQAqNqQm4&list=RD61cJXq87sWQ&index=5', // ลิงก์คลิปย่อยที่ 1
+                    'https://www.youtube.com/watch?v=1FztEbqElt0&list=RD61cJXq87sWQ&index=8', // ลิงก์คลิปย่อยที่ 2
+                    'https://www.youtube.com/watch?v=C-Edz_RXi8E&list=RD61cJXq87sWQ&index=6'  // ลิงก์คลิปย่อยที่ 3
+                ]
+            };
+
+            // ฟังก์ชันสกัด ID จากลิงก์ YouTube อัตโนมัติ (รองรับลิงก์ทุกรูปแบบ)
+            const extractYouTubeID = (url) => {
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[2].length === 11) ? match[2] : null;
+            };
+
+            // 2. ค้นหา Element ของวิดีโอหลัก และกล่อง Playlist ในหน้าเว็บ
+            const mainVideoCard = document.querySelector('#rewind .lg\\:col-span-2');
+            const playlistCards = document.querySelectorAll('#rewind .space-y-4 .glass-panel');
+
+            // 3. ฟังก์ชันสำหรับสร้างและฝัง iframe ลงไปแทนที่รูปภาพเดิม
+            const embedYouTubeVideo = (url) => {
+                if (!mainVideoCard) return;
+                
+                const videoId = extractYouTubeID(url);
+                if (!videoId) {
+                    console.error("ลิงก์ YouTube ไม่ถูกต้อง กรุณาตรวจสอบลิงก์อีกครั้ง:", url);
+                    return;
+                }
+
+                // ลบเนื้อหาเดิม (ภาพ/ปุ่ม Play) และฝัง Iframe แบบเล่นอัตโนมัติ
+                mainVideoCard.innerHTML = `
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        class="absolute inset-0 w-full h-full z-20 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.3)]"
+                        style="background-color: #000;"
+                    ></iframe>
+                `;
+                
+                // ลบเอฟเฟกต์ 3D Tilt ออกชั่วคราวเมื่อวิดีโอเล่น เพื่อให้กดปุ่มใน YouTube ได้ง่ายขึ้น
+                mainVideoCard.classList.remove('tilt-card');
+                mainVideoCard.style.transform = 'none';
+            };
+
+            // 4. ผูก Event เมื่อคลิกที่วิดีโอหลักครั้งแรก
+            if (mainVideoCard) {
+                mainVideoCard.addEventListener('click', function playMainVideo() {
+                    // ถ้ายังไม่มี iframe ให้สร้างขึ้นมา
+                    if (!this.querySelector('iframe')) {
+                        embedYouTubeVideo(videoLinks.main);
+                    }
+                });
+            }
+
+            // 5. ผูก Event เมื่อคลิกที่ Playlist ขวามือ (ให้คลิปไปเล่นที่จอหลัก)
+            playlistCards.forEach((card, index) => {
+                card.addEventListener('click', () => {
+                    // ดึงวิดีโอใหม่ไปเปิดที่กล่องใหญ่
+                    embedYouTubeVideo(videoLinks.playlist[index]);
+                    
+                    // เอฟเฟกต์เปลี่ยนสีกรอบให้คลิปที่กำลังเล่นอยู่ (Active State)
+                    playlistCards.forEach(c => {
+                        c.style.borderColor = 'rgba(255, 255, 255, 0.08)'; // สีขอบเดิม
+                        c.style.boxShadow = 'none';
+                    });
+                    
+                    card.style.borderColor = '#06B6D4'; // เปลี่ยนสีกรอบเป็นสีฟ้า
+                    card.style.boxShadow = '0 0 15px rgba(6,182,212,0.2)'; // เพิ่มแสงออร่า
+                });
+            });
+
         });
     </script>
     <!-- ========================================================== -->
