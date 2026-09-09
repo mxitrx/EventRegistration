@@ -21,12 +21,16 @@
         }
         .text-gradient { 
             background: linear-gradient(135deg, #A855F7, #06B6D4, #3B82F6); 
-            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             background-size: 200% 200%; animation: gradientMove 5s ease infinite;
         }
         .glass-panel { background: rgba(15, 20, 30, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .glass-card:hover { border-color: #06B6D4; box-shadow: 0 0 20px rgba(6,182,212,0.2); transform: translateY(-5px); }
         
+        /* Video Play Button Pulse */
+        .play-btn-pulse { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); animation: pulse-cyan 2s infinite; }
+        @keyframes pulse-cyan { 0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(6, 182, 212, 0); } 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); } }
+
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         .animate-float { animation: float 4s ease-in-out infinite; }
         .animate-float-delay { animation: float 5s ease-in-out infinite; animation-delay: 2s; }
@@ -43,10 +47,10 @@
                     <div class="w-8 h-8 bg-gradient-to-tr from-purple-600 to-cyan-500 rounded-lg flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(6,182,212,0.5)]">TF</div>
                     <span class="font-bold text-xl tracking-wide text-white">TechForward</span>
                 </div>
-                <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+                <div class="hidden md:flex space-x-6 text-sm font-medium text-gray-300">
                     <a href="#about" class="hover:text-cyan-400 transition">เกี่ยวกับงาน</a>
-                    <a href="#tracks" class="hover:text-cyan-400 transition">หัวข้อหลัก</a>
                     <a href="#speakers" class="hover:text-cyan-400 transition">วิทยากร</a>
+                    <a href="#rewind" class="hover:text-cyan-400 transition">รับชมย้อนหลัง</a>
                     <a href="#pricing" class="hover:text-cyan-400 transition">ราคาบัตร</a>
                 </div>
                 <div>
@@ -73,7 +77,7 @@
             TechForward Summit <br>
             <span class="text-gradient">The Future is Here</span>
         </h1>
-        <p class="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">งานสัมมนาด้านเทคโนโลยีระดับสากลที่รวมผู้นำนวัตกรรม AI, Cloud และ Cybersecurity มาไว้ในที่เดียว เพื่อปลดล็อกศักยภาพธุรกิจคุณ</p>
+        <p class="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">งานสัมมนาด้านเทคโนโลยีระดับสากลที่รวมผู้นำนวัตกรรม AI, Cloud และ Cybersecurity มาไว้ในที่เดียว</p>
         
         <!-- Countdown -->
         <div class="flex justify-center items-center gap-3 md:gap-5 mb-12" data-aos="zoom-in" data-aos-delay="300">
@@ -99,57 +103,175 @@
         </div>
     </section>
 
-    <!-- [NEW] About Section -->
-    <section id="about" class="py-20 px-4 max-w-7xl mx-auto border-t border-gray-800/50">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right">
-                <h2 class="text-3xl font-bold text-white mb-6">ทำไมคุณถึงไม่ควรพลาด <br><span class="text-cyan-400">TechForward 2027</span></h2>
-                <p class="text-gray-400 mb-6 leading-relaxed">
-                    ก้าวข้ามขีดจำกัดของเทคโนโลยีในยุคดิจิทัล เรียนรู้จากผู้เชี่ยวชาญระดับโลกกว่า 30 ท่าน ที่จะมาแชร์ Use Case จริง กลยุทธ์การปรับตัว และเจาะลึกเทรนด์ที่กำลังจะเปลี่ยนโลกภายในปี 2030
-                </p>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3 text-gray-300"><span class="bg-cyan-500/20 text-cyan-400 p-2 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span> <strong>Insightful Keynotes:</strong> เจาะลึกเทรนด์จากผู้นำตัวจริง</li>
-                    <li class="flex items-center gap-3 text-gray-300"><span class="bg-purple-500/20 text-purple-400 p-2 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span> <strong>Premium Networking:</strong> เชื่อมต่อกับ C-Level และ Tech Lead กว่า 1,500 คน</li>
-                    <li class="flex items-center gap-3 text-gray-300"><span class="bg-emerald-500/20 text-emerald-400 p-2 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg></span> <strong>Hands-on Labs:</strong> เวิร์กช็อปเขียนโค้ดและทำระบบจริง</li>
-                </ul>
+    <!-- [NEW] Speakers Section (วิทยากร) -->
+    <section id="speakers" class="py-20 px-4 max-w-7xl mx-auto border-t border-gray-800/50">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">วิทยากรระดับแนวหน้า</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">พบกับผู้เชี่ยวชาญและผู้นำทางความคิดจากบริษัทเทคโนโลยีระดับโลก ที่จะมาร่วมแบ่งปันวิสัยทัศน์และประสบการณ์ตรง</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Speaker 1 -->
+            <div class="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 hover:border-cyan-500/50" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Speaker" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500 transform group-hover:scale-110">
+                    <div class="absolute top-3 right-3 bg-cyan-500/80 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded uppercase">AI & Data</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-1">ดร. ภัทรินทร์ เกียรติวรกุล</h3>
+                    <p class="text-sm text-cyan-400 mb-3">VP of Artificial Intelligence, NextGen Labs</p>
+                    <p class="text-xs text-gray-400 leading-relaxed">ผู้เชี่ยวชาญด้าน LLM และ Generative AI ที่ขับเคลื่อนองค์กรชั้นนำในเอเชียแปซิฟิก</p>
+                </div>
             </div>
-            <div data-aos="fade-left" class="relative">
-                <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
-                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop" alt="Event Vibe" class="rounded-2xl relative z-10 border border-gray-700 grayscale hover:grayscale-0 transition duration-500 object-cover h-80 w-full">
+            
+            <!-- Speaker 2 -->
+            <div class="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 hover:border-purple-500/50" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=600&q=80" alt="Speaker" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500 transform group-hover:scale-110">
+                    <div class="absolute top-3 right-3 bg-purple-500/80 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Cloud-Native</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-1">Marcus Vance</h3>
+                    <p class="text-sm text-purple-400 mb-3">Global Principal Architect, CloudScale Inc.</p>
+                    <p class="text-xs text-gray-400 leading-relaxed">ผู้อยู่เบื้องหลังการวางสถาปัตยกรรม Microservices ให้กับบริษัทยักษ์ใหญ่ระดับโลก</p>
+                </div>
+            </div>
+
+            <!-- Speaker 3 -->
+            <div class="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 hover:border-emerald-500/50" data-aos="fade-up" data-aos-delay="300">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Speaker" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500 transform group-hover:scale-110">
+                    <div class="absolute top-3 right-3 bg-emerald-500/80 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Cybersecurity</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-1">Elena Rostova</h3>
+                    <p class="text-sm text-emerald-400 mb-3">Chief Cyber Defense Officer, CyberShield</p>
+                    <p class="text-xs text-gray-400 leading-relaxed">นักยุทธศาสตร์ความปลอดภัยทางไซเบอร์ ผู้พัฒนาแนวคิด Zero-Trust Security</p>
+                </div>
+            </div>
+
+            <!-- Speaker 4 -->
+            <div class="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 hover:border-pink-500/50" data-aos="fade-up" data-aos-delay="400">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt="Speaker" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500 transform group-hover:scale-110">
+                    <div class="absolute top-3 right-3 bg-pink-500/80 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Tech Strategy</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-1">กานต์พิชชา สุวรรณเมธา</h3>
+                    <p class="text-sm text-pink-400 mb-3">Head of Engineering, FinTech Nexus</p>
+                    <p class="text-xs text-gray-400 leading-relaxed">ผู้นำทีมวิศวกรซอฟต์แวร์ที่เปลี่ยนผ่านระบบธนาคารแบบเดิม สู่ Digital Banking เต็มรูปแบบ</p>
+                </div>
+            </div>
+
+            <!-- Speaker 5 -->
+            <div class="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 hover:border-yellow-500/50" data-aos="fade-up" data-aos-delay="500">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Speaker" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500 transform group-hover:scale-110">
+                    <div class="absolute top-3 right-3 bg-yellow-500/80 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Web3 & Future</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-1">Alex Mercer</h3>
+                    <p class="text-sm text-yellow-400 mb-3">Founder & CEO, BlockVision</p>
+                    <p class="text-xs text-gray-400 leading-relaxed">ผู้บุกเบิกเทคโนโลยี Decentralized Identity และการประยุกต์ใช้ Blockchain ในภาครัฐ</p>
+                </div>
+            </div>
+
+            <!-- Speaker 6 -->
+            <div class="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 hover:border-blue-500/50" data-aos="fade-up" data-aos-delay="600">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=600&q=80" alt="Speaker" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500 transform group-hover:scale-110">
+                    <div class="absolute top-3 right-3 bg-blue-500/80 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded uppercase">DevOps</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-1">Sarah Jenkins</h3>
+                    <p class="text-sm text-blue-400 mb-3">Senior Staff Engineer, TechGiant</p>
+                    <p class="text-xs text-gray-400 leading-relaxed">ผู้เชี่ยวชาญด้าน CI/CD Pipeline และ Automation ที่ช่วยลดเวลาทำงานของทีมได้ถึง 80%</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- [NEW] Tech Tracks Section -->
-    <section id="tracks" class="py-20 px-4 max-w-7xl mx-auto">
-        <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-3xl font-bold text-white mb-2">3 ธีมเนื้อหาหลัก (Tech Tracks)</h2>
-            <p class="text-gray-400">ครอบคลุมทุกมิติของเทคโนโลยีที่ขับเคลื่อนโลกอนาคต</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-6">
-            <!-- Track 1 -->
-            <div class="glass-panel glass-card p-8 rounded-2xl text-center transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-16 h-16 mx-auto bg-purple-500/20 rounded-full flex items-center justify-center mb-6 text-purple-400">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+    <!-- [NEW] VOD / Rewind Section (รับชมย้อนหลัง) -->
+    <section id="rewind" class="py-20 px-4 bg-[#0A0D14] border-y border-gray-800/50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-900/20 rounded-full blur-[100px]"></div>
+        
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10" data-aos="fade-right">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">TechForward <span class="text-cyan-400">Rewind</span></h2>
+                    <p class="text-gray-400">รับชมบรรยากาศและ Keynote สำคัญจากงานปีที่ผ่านมา (VOD)</p>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3">AI & Machine Learning</h3>
-                <p class="text-sm text-gray-400">Generative AI, Autonomous Agents, LLM Infrastructure และการนำ AI มาใช้ในองค์กรจริง</p>
+                <a href="#" class="hidden md:flex items-center gap-2 text-cyan-400 hover:text-white transition font-medium text-sm">
+                    ดูวิดีโอทั้งหมด <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
             </div>
-            <!-- Track 2 -->
-            <div class="glass-panel glass-card p-8 rounded-2xl text-center transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-16 h-16 mx-auto bg-cyan-500/20 rounded-full flex items-center justify-center mb-6 text-cyan-400">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- วิดีโอหลัก (Main Highlight) -->
+                <div class="lg:col-span-2 glass-panel rounded-2xl overflow-hidden group cursor-pointer relative" data-aos="fade-up">
+                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1200&q=80" alt="Main Event Video" class="w-full h-full object-cover aspect-video group-hover:scale-105 transition duration-700 opacity-70 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent"></div>
+                    
+                    <!-- ปุ่ม Play -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-20 h-20 bg-cyan-500/90 rounded-full flex items-center justify-center text-white play-btn-pulse transform group-hover:scale-110 transition">
+                            <svg class="w-10 h-10 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Highlight 2026</span>
+                            <span class="text-gray-300 text-xs">15:24 นาที</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">บทสรุปและบรรยากาศงาน TechForward Summit 2026</h3>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3">Cloud-Native & DevOps</h3>
-                <p class="text-sm text-gray-400">Microservices Architecture, Kubernetes Mastery, CI/CD Pipelines และ Serverless</p>
-            </div>
-            <!-- Track 3 -->
-            <div class="glass-panel glass-card p-8 rounded-2xl text-center transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
-                <div class="w-16 h-16 mx-auto bg-emerald-500/20 rounded-full flex items-center justify-center mb-6 text-emerald-400">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+
+                <!-- วิดีโอย่อย (Playlist) -->
+                <div class="space-y-4 flex flex-col justify-between" data-aos="fade-left">
+                    <!-- คลิป 1 -->
+                    <div class="glass-panel p-3 rounded-xl flex gap-4 cursor-pointer hover:border-cyan-500 transition group">
+                        <div class="w-32 h-20 rounded-lg overflow-hidden relative shrink-0">
+                            <img src="https://images.unsplash.com/photo-1475721025592-229bac54c5dc?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-80">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                <svg class="w-8 h-8 text-white opacity-80 group-hover:opacity-100" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <h4 class="text-sm font-bold text-white mb-1 line-clamp-2 group-hover:text-cyan-400 transition">Opening Keynote: The Dawn of AGI & Cloud Architecture</h4>
+                            <span class="text-xs text-gray-500">ยอดวิว 45K • 45 นาที</span>
+                        </div>
+                    </div>
+                    <!-- คลิป 2 -->
+                    <div class="glass-panel p-3 rounded-xl flex gap-4 cursor-pointer hover:border-purple-500 transition group">
+                        <div class="w-32 h-20 rounded-lg overflow-hidden relative shrink-0">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-80">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                <svg class="w-8 h-8 text-white opacity-80 group-hover:opacity-100" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <h4 class="text-sm font-bold text-white mb-1 line-clamp-2 group-hover:text-purple-400 transition">Panel Discussion: Cyber Defense in Web3 Era</h4>
+                            <span class="text-xs text-gray-500">ยอดวิว 32K • 1 ชั่วโมง 10 นาที</span>
+                        </div>
+                    </div>
+                    <!-- คลิป 3 -->
+                    <div class="glass-panel p-3 rounded-xl flex gap-4 cursor-pointer hover:border-emerald-500 transition group">
+                        <div class="w-32 h-20 rounded-lg overflow-hidden relative shrink-0">
+                            <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-80">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                <svg class="w-8 h-8 text-white opacity-80 group-hover:opacity-100" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <h4 class="text-sm font-bold text-white mb-1 line-clamp-2 group-hover:text-emerald-400 transition">Hands-on Lab: Building RAG Pipelines (ย้อนหลัง)</h4>
+                            <span class="text-xs text-gray-500">ยอดวิว 80K • 2 ชั่วโมง</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="md:hidden w-full text-center py-3 border border-gray-700 rounded-xl text-sm text-cyan-400 font-medium hover:bg-gray-800 transition">ดูวิดีโอทั้งหมด</a>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3">Cybersecurity & Trust</h3>
-                <p class="text-sm text-gray-400">Zero-Trust Network, DevSecOps, Data Privacy และการป้องกันภัยคุกคามทางไซเบอร์ยุคใหม่</p>
             </div>
         </div>
     </section>
@@ -254,77 +376,16 @@
         </div>
     </section>
 
-    <!-- [NEW] Testimonials Section -->
-    <section class="py-20 px-4 bg-[#0A0D14] border-y border-gray-800/50">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center text-white mb-12">เสียงตอบรับจากผู้ร่วมงานปีที่ผ่านมา</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="glass-panel p-6 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                    <p class="text-gray-400 text-sm italic mb-6">"เนื้อหาแน่นมาก ได้เห็น Use case การใช้ AI ในองค์กรที่นำไปปรับใช้ได้จริง Networking session ก็ช่วยให้เจอพาร์ทเนอร์ใหม่ๆ เพียบ"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gray-700 rounded-full"></div>
-                        <div><div class="text-white text-sm font-bold">คุณกิตติชัย</div><div class="text-xs text-gray-500">CTO, Tech Startup</div></div>
-                    </div>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                    <p class="text-gray-400 text-sm italic mb-6">"คุ้มค่าตั๋ว VIP มาก Lounge ดี อาหารอร่อย และได้คุยกับ Speaker แบบ Exclusive สุดๆ ปีหน้าไม่พลาดแน่นอนครับ"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gray-700 rounded-full"></div>
-                        <div><div class="text-white text-sm font-bold">ดร. สมหญิง</div><div class="text-xs text-gray-500">Head of Data, Enterprise</div></div>
-                    </div>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                    <p class="text-gray-400 text-sm italic mb-6">"ระบบจัดงานดีเยี่ยม การเช็คอินราบรื่น เนื้อหาฝั่ง DevOps อัปเดตล่าสุด ทำให้ทีมเราวางแผน Architecture ได้เฉียบคมขึ้น"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gray-700 rounded-full"></div>
-                        <div><div class="text-white text-sm font-bold">คุณนัท</div><div class="text-xs text-gray-500">Senior Cloud Engineer</div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- [NEW] Sponsors Tier Section -->
-    <section class="py-20 px-4 max-w-7xl mx-auto text-center">
-        <h2 class="text-3xl font-bold text-white mb-4">ผู้สนับสนุนหลักอย่างเป็นทางการ</h2>
-        <p class="text-gray-400 mb-12">ขอขอบคุณพาร์ทเนอร์ที่ร่วมผลักดันวงการเทคโนโลยีไทย</p>
-        
-        <!-- Platinum -->
-        <div class="mb-12">
-            <h3 class="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Platinum Sponsors</h3>
-            <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all">
-                <div class="text-3xl font-black text-white">AWS</div>
-                <div class="text-3xl font-black text-white">Google Cloud</div>
-                <div class="text-3xl font-black text-white">Microsoft</div>
-            </div>
-        </div>
-        
-        <!-- Gold -->
-        <div>
-            <h3 class="text-sm font-bold text-yellow-500 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Gold Sponsors</h3>
-            <div class="flex flex-wrap justify-center gap-6 md:gap-12 items-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all text-xl font-bold text-gray-300">
-                <div>Datadog</div>
-                <div>Cloudflare</div>
-                <div>Palo Alto Networks</div>
-                <div>MongoDB</div>
-            </div>
-        </div>
-    </section>
+    <!-- [NEW] Sponsors Tier Section --> <section class="py-20 px-4 max-w-7xl mx-auto text-center"> <h2 class="text-3xl font-bold text-white mb-4">ผู้สนับสนุนหลักอย่างเป็นทางการ</h2> <p class="text-gray-400 mb-12">ขอขอบคุณพาร์ทเนอร์ที่ร่วมผลักดันวงการเทคโนโลยีไทย</p> <!-- Platinum --> <div class="mb-12"> <h3 class="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Platinum Sponsors</h3> <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all"> <div class="text-3xl font-black text-white">AWS</div> <div class="text-3xl font-black text-white">Google Cloud</div> <div class="text-3xl font-black text-white">Microsoft</div> </div> </div> <!-- Gold --> <div> <h3 class="text-sm font-bold text-yellow-500 tracking-widest uppercase mb-6 border-b border-gray-800 pb-2 inline-block">Gold Sponsors</h3> <div class="flex flex-wrap justify-center gap-6 md:gap-12 items-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all text-xl font-bold text-gray-300"> <div>Datadog</div> <div>Cloudflare</div> <div>Palo Alto Networks</div> <div>MongoDB</div> </div> </div> </section>
 
     <!-- Footer -->
     <footer class="bg-[#050505] border-t border-gray-800/80 pt-10 pb-6 px-4 text-center text-gray-500 text-sm">
         <p>&copy; 2027 TechForward Summit. All rights reserved. | <a href="#" class="hover:text-cyan-400">Privacy Policy</a></p>
     </footer>
 
-    <!-- [NEW] Floating Action Button (กลับขึ้นบน / ลงทะเบียน) -->
+    <!-- Floating Action Button -->
     <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
-        <a href="#register" class="bg-cyan-600 hover:bg-cyan-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.5)] transition transform hover:scale-110" title="ลงทะเบียน">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-        </a>
-        <button onclick="window.scrollTo(0,0)" class="bg-gray-800 hover:bg-gray-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition transform hover:scale-110 border border-gray-700" title="กลับขึ้นบน">
+        <button onclick="window.scrollTo(0,0)" class="bg-gray-800/80 hover:bg-gray-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition transform hover:scale-110 border border-gray-700 backdrop-blur" title="กลับขึ้นบน">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
         </button>
     </div>
@@ -341,10 +402,10 @@
             else { nav.classList.remove('shadow-lg', 'bg-[#050505]/95'); }
         });
 
-        // 🚀 URL Google Apps Script (ใส่ของคุณตรงนี้)
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFnp09VDXGq1sQuV9YYFbi5-vxYe_Lp3EASi85FLDlgYIkgo72H3Z2iltPICm9RviaUQ/exec'; 
+        // 🚀 URL Google Apps Script (อย่าลืมเปลี่ยนเป็น URL ของคุณ)
+        const SCRIPT_URL = 'YOUR_WEB_APP_URL_HERE'; 
 
-        // Countdown Timer (เป้าหมาย 25 พฤษภาคม 2027)
+        // Countdown Timer
         const targetDate = new Date("2027-05-25T09:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
@@ -381,7 +442,7 @@
             document.getElementById('hiddenTotal').value = total;
         }
 
-        // Form Submit to Google Sheets
+        // Form Submit
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
